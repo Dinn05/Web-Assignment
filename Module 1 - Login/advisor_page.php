@@ -28,7 +28,7 @@ if (
 <header class="navbar">
     <div class="logo">EVENT ADVISOR</div>
     <div class="profile-dropdown">
-        <img src="Images/eventadvisor.png" alt="Profile" class="profile-icon" onclick="toggleDropdown()">
+        <img src="../Images/eventadvisor.png" alt="Profile" class="profile-icon" onclick="toggleDropdown()">
         <div id="dropdown-content" class="dropdown-content">
             <p><strong><?php echo $username; ?></strong></p>
             <a href="#">Setting Profile</a>

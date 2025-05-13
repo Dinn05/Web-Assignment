@@ -7,8 +7,8 @@
 </head>
 <body>
     <div class="logo-container">
-        <img src="Images/umpsa logo1.png" alt="UMPSA Logo" class="logo">
-        <img src="Images/petakom logo1.png" alt="PETAKOM Logo" class="logo">
+        <img src="../Images/umpsa logo1.png" alt="UMPSA Logo" class="logo">
+        <img src="../Images/petakom logo1.png" alt="PETAKOM Logo" class="logo">
     </div>
 
     <?php
