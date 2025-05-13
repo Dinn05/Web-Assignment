@@ -1,15 +1,17 @@
 <?php
 session_start();
 
-$link = mysqli_connect("localhost", "root", "", "login") or die("Connection failed: " . mysqli_connect_error());
+$link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed: " . mysqli_connect_error());
 
 $id = $_POST['id'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 $selectedRole = $_POST['role'];
 
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
 // Get user from DB
-$stmt = mysqli_prepare($link, "SELECT * FROM users WHERE username = ?");
+$stmt = mysqli_prepare($link, "SELECT * FROM login WHERE username = ?");
 mysqli_stmt_bind_param($stmt, "s", $username);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);

@@ -7,7 +7,7 @@ if (
     isset($_SESSION['role']) &&
     $_SESSION['role'] === 'student'
 ) {
-    $fullname = htmlspecialchars($_SESSION['fullname']);
+    //$fullname = htmlspecialchars($_SESSION['fullname']);
     $username = htmlspecialchars($_SESSION['username']);
     $id = $_SESSION['id'];
 } else {
@@ -41,7 +41,7 @@ if (
 
 <main class="main-content">
     <div class="register-box">
-        <p>Welcome, <strong><?php echo $fullname; ?>!</strong></p>
+        <p>Welcome, <strong><?php echo $username; ?>!</strong></p>
         <form action="register_petakom.php" method="POST">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
             <input type="submit" class="register-btn" value="Register for PETAKOM">

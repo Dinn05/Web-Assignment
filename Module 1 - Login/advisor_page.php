@@ -7,7 +7,7 @@ if (
     isset($_SESSION['role']) &&
     $_SESSION['role'] === 'event_advisor'
 ) {
-    $fullname = htmlspecialchars($_SESSION['fullname']);
+    //$fullname = htmlspecialchars($_SESSION['fullname']);
     $username = htmlspecialchars($_SESSION['username']);
     $id = $_SESSION['id'];
 } else {
@@ -39,7 +39,7 @@ if (
 
 <main class="main-content">
     <div class="register-box">
-        <p>Welcome, <strong><?php echo $fullname; ?>!</strong></p>
+        <p>Welcome, <strong><?php echo $username; ?>!</strong></p>
     </div>
 </main>
 
