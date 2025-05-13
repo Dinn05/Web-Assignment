@@ -4,35 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Merit Application - MyPetakom</title>
-  <link rel="stylesheet" href="Style/style.css">
+  <link rel="stylesheet" href="Style/Merit.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <header>
-      <nav class="navbar">
-        <div class="logo">
-          <img src="Images/PetakomLogo.png" alt="MyPetakom Logo" />
+  <header class="navbar">
+    <div class="logo">
+      <img src="../Images/petakom logo1.png" alt="Petakom Logo" style="width: 100px;">
+    </div>
+    <div class="logo">EVENT ADVISOR</div>
+    <div class="profile-dropdown">
+        <img src="../Images/eventadvisor.png" alt="Profile" class="profile-icon" onclick="toggleDropdown()">
+        <div id="dropdown-content" class="dropdown-content">
+            <p><strong><?php echo $username; ?></strong></p>
+            <a href="#">Setting Profile</a>
+            <a href="logout.php">Logout</a>
         </div>
-        <ul class="nav-links">
-          <li><a href="DashboardPage.html">Dashboard</a></li>
-          <li><a href="EventRegistrationForm.html">Event</a></li>
-          <li><a href="CommitteRegistrationForm.html">Committee</a></li>
-          <li><a href="MeritApplicationForm.html">Merit</a></li>
-          <li><a href="QRCodeEventPage.html">QR</a></li>
-        </ul>
-        <div class="user-profile">
-          <img src="user-profile.png" alt="User Profile" class="user-img" />
-        </div>
-      </nav>
-    </header>
-  
-    <main>
-      <!-- Main Content -->
-      <div class="content">
-        <h2>Welcome to MyPetakom </h2>
-        <p>Manage your events, committees, and more.</p>
-      </div>
-    </main>
+    </div>
+</header>
+
+ <!-- Sidebar -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="DashboardPage.php">Dashboard</a>
+    <a href="EventRegistrationForm.php">Event Registration</a>
+    <a href="CommitteRegistrationForm.php">Committee</a>
+    <a href="MeritApplicationForm.php">Merit</a>
+    <a href="QRCodeEventPage.php">QR Code</a>
+  </div>
+
+    <button class="openbtn" onclick="openNav()">☰ Menu</button>
+
   <div class="container">
     <h2>Merit Application</h2>
     <form action="#" method="POST">
@@ -48,5 +49,18 @@
       <button type="submit">Submit Application</button>
     </form>
   </div>
+  <!-- JavaScript for Sidenav Push -->
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
+
 </body>
 </html>

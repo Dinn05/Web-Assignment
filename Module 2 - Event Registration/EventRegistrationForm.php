@@ -1,82 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Dashboard - MyPetakom</title>
-  <link rel="stylesheet" href="Style/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Registration - Petakom</title>
+  <link rel="stylesheet" href="Style/Event.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <header>
-      <nav class="navbar">
-        <div class="logo">
-          <img src="Images/PetakomLogo.png" alt="MyPetakom Logo" />
-        </div>
-        <ul class="nav-links">
-          <li><a href="EventRegistrationForm.html">Event</a></li>
-          <li><a href="CommitteRegistrationForm.html">Committee</a></li>
-          <li><a href="MeritApplicationForm.html">Merit</a></li>
-          <li><a href="QRCodeEventPage.html">QR</a></li>
-        </ul>
-        <div class="user-profile">
-          <img src="user-profile.png" alt="User Profile" class="user-img" />
-        </div>
-      </nav>
-    </header>
-
-    <main>
-      <div class="content">
-        <h2>Welcome to MyPetakom</h2>
-        <p>Manage your events, committees, and more.</p>
-      </div>
-    </main>
-
-    <div class="container">
-      <h2>Event Dashboard</h2>
-
-      <!-- Dashboard Navigation -->
-      <div class="dashboard-nav">
-        <ul>
-          <li><a href="EventRegistrationForm.html">Register New Event</a></li>
-          <li><a href="QRCodeEventPage.html">View All Events</a></li>
-          <li><a href="CommitteRegistrationForm.html">Manage Committees</a></li>
-          <li><a href="MeritApplicationForm.html">Manage Merit Claims</a></li>
-        </ul>
-      </div>
-
-      <!-- Display Upcoming Events -->
-      <h3>Upcoming Events</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Event Name</th>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Event Advisor</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          // Check if there are any events
-          if ($result->num_rows > 0) {
-              // Loop through all events and display them in the table
-              while ($row = $result->fetch_assoc()) {
-                  echo "<tr>";
-                  echo "<td>" . $row['event_name'] . "</td>";
-                  echo "<td>" . $row['event_date'] . "</td>";
-                  echo "<td>" . $row['event_location'] . "</td>";
-                  echo "<td>" . $row['event_advisor'] . "</td>";
-                  echo '<td><button class="edit-btn">Edit</button><button class="delete-btn">Delete</button></td>';
-                  echo "</tr>";
-              }
-          } else {
-              echo "<tr><td colspan='5'>No events found.</td></tr>";
-          }
-          ?>
-        </tbody>
-      </table>
+<header class="navbar">
+    <div class="logo">
+      <img src="../Images/petakom logo1.png" alt="Petakom Logo" style="width: 100px;">
     </div>
+    <div class="logo">EVENT ADVISOR</div>
+    <div class="profile-dropdown">
+        <img src="../Images/eventadvisor.png" alt="Profile" class="profile-icon" onclick="toggleDropdown()">
+        <div id="dropdown-content" class="dropdown-content">
+            <p><strong><?php echo $username; ?></strong></p>
+            <a href="#">Setting Profile</a>
+            <a href="logout.php">Logout</a>
+        </div>
+    </div>
+</header>
+
+ <!-- Sidebar -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="DashboardPage.php">Dashboard</a>
+    <a href="EventRegistrationForm.php">Event Registration</a>
+    <a href="CommitteRegistrationForm.php">Committee</a>
+    <a href="MeritApplicationForm.php">Merit</a>
+    <a href="QRCodeEventPage.php">QR Code</a>
+  </div>
+
+    <button class="openbtn" onclick="openNav()">☰ Menu</button>
+  <div class="container">
+    
+    <div class="main">
+      <h1 style="text-align: center">Event Registration Form</h1>
+      <form>
+        <label>Event Name:</label>
+        <input type="text" placeholder="Enter event name">
+
+        <label>Date:</label>
+        <input type="date">
+
+        <label>Location:</label>
+        <input type="text" placeholder="Enter location">
+
+        <label>Advisor Name:</label>
+        <input type="text" placeholder="Enter advisor name">
+
+        <button type="submit" class="edit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+    <!-- JavaScript for Sidenav Push -->
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
+
 </body>
 </html>
