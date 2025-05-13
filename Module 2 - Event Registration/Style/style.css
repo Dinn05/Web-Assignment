@@ -1,0 +1,239 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 80%;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input, textarea {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.qr-code {
+  width: 200px;
+  height: 200px;
+}
+
+/*---------*/
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+}
+
+.container {
+  width: 80%;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+.dashboard-nav {
+  margin-bottom: 20px;
+}
+
+.dashboard-nav ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  gap: 20px;
+}
+
+.dashboard-nav a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #333;
+}
+
+.dashboard-nav a:hover {
+  color: #4CAF50;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
+.edit-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:focus {
+  outline: none;
+}
+
+/*NAv bar*/
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and background */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+main {
+  padding: 20px;
+  background-color: #fff;
+}
+
+/* Navigation bar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo img {
+  height: 40px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-links li {
+  margin: 0 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
+.nav-links a:hover {
+  color: #4CAF50;
+}
+
+/* User profile */
+.user-profile {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile .user-img {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+/* Main content area */
+.content {
+  text-align: center;
+  padding: 30px;
+}
+
+h2 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #666;
+  font-size: 1.2rem;
+}
