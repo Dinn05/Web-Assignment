@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Dashboard - MyPetakom</title>
-  <link rel="stylesheet" href="Style/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Petakom</title>
+    <link rel="stylesheet" href="Style/dashboard.css">
+
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <header>
-      <nav class="navbar">
-        <div class="logo">
-          <img src="Images/PetakomLogo.png" alt="MyPetakom Logo" />
-        </div>
-        <ul class="nav-links">
-          <li><a href="DashboardPage.html">Dashboard</a></li>
-          <li><a href="EventRegistrationForm.html">Event</a></li>
-          <li><a href="CommitteRegistrationForm.html">Committee</a></li>
-          <li><a href="MeritApplicationForm.html">Merit</a></li>
-          <li><a href="QRCodeEventPage.html">QR</a></li>
-        </ul>
 
-        <div class="user-profile">
-          <img src="" alt="User Profile" class="user-img" />
+<header class="navbar">
+    <div class="logo">
+      <img src="../Images/petakom logo1.png" alt="Petakom Logo">
+    </div>
+    <div class="logo">EVENT ADVISOR</div>
+    <div class="profile-dropdown">
+        <img src="../Images/eventadvisor.png" alt="Profile" class="profile-icon" onclick="toggleDropdown()">
+        <div id="dropdown-content" class="dropdown-content">
+            <p><strong><?php echo $username; ?></strong></p>
+            <a href="#">Setting Profile</a>
+            <a href="logout.php">Logout</a>
         </div>
-        
-      </nav>
-    </header>
-  
-    <main>
-      <!-- Main Content -->
-      <div class="content">
-        <h2>Welcome to MyPetakom </h2>
-        <p>Manage your events, committees, and more.</p>
-      </div>
-    </main>
-  <div class="container">
-    <h2>Event Dashboard</h2>
+    </div>
+</header>
 
-    <!-- Dashboard Navigation -->
-    <div class="dashboard-nav">
-      <ul>
-        <li><a href="EventRegistrationForm.html">Register New Event</a></li>
-        <li><a href="QRCodeEventPage.html">View All Events</a></li>
-        <li><a href="CommitteRegistrationForm.html">Manage Committees</a></li>
-        <li><a href="MeritApplicationForm.html">Manage Merit Claims</a></li>
-      </ul>
+  <!-- Sidebar -->
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="DashboardPage.php">Dashboard</a>
+    <a href="EventRegistrationForm.php">Event Registration</a>
+    <a href="CommitteRegistrationForm.php">Committee</a>
+    <a href="MeritApplicationForm.php">Merit</a>
+    <a href="QRCodeEventPage.php">QR Code</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <!-- Top logo and menu -->
+    <button class="openbtn" onclick="openNav()">☰ Menu</button>
+    
+
+    <h1 style="text-align: center;">Welcome, Event Advisor</h1>
+    <div class="button-group" style="text-align: center;">
+      <button type="button">Upcoming</button>
+      <button type="button">Oncoming</button>
+      <button type="button">All Events</button>
     </div>
 
-    <!-- Display Upcoming Events -->
-    <h3>Upcoming Events</h3>
+    <h2 style="text-align: center;">Event Details</h2>
     <table>
       <thead>
         <tr>
@@ -61,41 +59,52 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Event Row 1 -->
         <tr>
           <td>Tech Conference 2025</td>
           <td>2025-06-01</td>
           <td>UMPSA Main Hall</td>
           <td>John Doe</td>
           <td>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
+            <button class="edit-btn" aria-label="Edit Tech Conference 2025">Edit</button>
+            <button class="delete-btn" aria-label="Delete Tech Conference 2025">Delete</button>
           </td>
         </tr>
-        <!-- Event Row 2 -->
         <tr>
           <td>Sports Day</td>
           <td>2025-07-15</td>
           <td>UMPSA Sports Ground</td>
           <td>Jane Smith</td>
           <td>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
+            <button class="edit-btn" aria-label="Edit Sports Day">Edit</button>
+            <button class="delete-btn" aria-label="Delete Sports Day">Delete</button>
           </td>
         </tr>
-        <!-- Event Row 3 -->
         <tr>
           <td>Charity Fundraiser</td>
           <td>2025-09-10</td>
           <td>UMPSA Auditorium</td>
           <td>Michael Lee</td>
           <td>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
+            <button class="edit-btn" aria-label="Edit Charity Fundraiser">Edit</button>
+            <button class="delete-btn" aria-label="Delete Charity Fundraiser">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- JavaScript for Sidenav Push -->
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
+
 </body>
 </html>

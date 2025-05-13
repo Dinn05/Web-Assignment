@@ -1,3 +1,6 @@
+CREATE DATABASE myPetakom ;
+use database myPetakom;
+
 CREATE TABLE LOGIN (
     login_id INT PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
