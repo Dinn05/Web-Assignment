@@ -1,0 +1,157 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to top, #2c003e, #5f259f);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-wrapper {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    width: 320px;
+    color: #fff;
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+}
+
+/* Fix spacing and layout */
+.input-field {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-field input, 
+.input-field select 
+{
+    width: 100%;
+    padding: 12px 40px 12px 15px; /* Fixed padding for consistent height */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #333;
+    font-size: 15px;
+    appearance: none;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+/* Icon inside input or select */
+.input-field .icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #5f259f;
+}
+
+/* Input focus style */
+.input-field input:focus,
+.input-field select:focus {
+    outline: none;
+    box-shadow: 0 0 5px #fff;
+    border: 1px solid #a585ff;
+}
+
+/* Dropdown styling */
+.input-field select option {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Placeholder style */
+::placeholder {
+    color: #888;
+    opacity: 1;
+}
+
+/* Remember me and forgot password */
+.options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.options a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+/* Login button */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #fff;
+    color: #5f259f;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background: #ddd0ff;
+}
+
+/* Register link */
+.register-link {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+
+}
+
+.logo {
+    height: 150px;
+    width: 200px;
+    object-fit: contain;
+}
+
+.error-box {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
