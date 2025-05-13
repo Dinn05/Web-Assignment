@@ -23,7 +23,7 @@ if ($user) {
             $_SESSION['Login'] = "YES";
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $username;
-            $_SESSION['fullname'] = $user['fullname'];
+            //$_SESSION['fullname'] = $user['fullname'];
             $_SESSION['role'] = $user['role'];
 
             if ($user['role'] === 'student') {
