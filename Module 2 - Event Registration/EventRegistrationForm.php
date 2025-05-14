@@ -37,18 +37,18 @@
     
     <div class="main">
       <h1 style="text-align: center">Event Registration Form</h1>
-      <form>
+      <form action="register_process.php" method="POST">
         <label>Event Name:</label>
-        <input type="text" placeholder="Enter event name">
+        <input type="text" name="title" placeholder="Enter event name" >
 
         <label>Date:</label>
-        <input type="date">
+        <input type="date" name="event_date">
 
         <label>Location:</label>
-        <input type="text" placeholder="Enter location">
+        <input type="text" name="location" placeholder="Enter location">
 
         <label>Advisor Name:</label>
-        <input type="text" placeholder="Enter advisor name">
+        <input type="text" name="description" placeholder="Enter advisor name">
 
         <button type="submit" class="edit-btn">Submit</button>
       </form>
