@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
   // Get data from the form
   $title = $_POST['title'];
   $event_date = $_POST['event_date'];
@@ -22,16 +22,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $advisor_name = $_POST['description'];
 
   // Prepare the SQL query to insert data
-  $sql = "INSERT INTO event (title, event_date, location, advisor_name) 
-          VALUES ('$title', '$event_date', '$location', '$advisor_name')";
+  $sql = "INSERT INTO events (title, event_date, location, description) VALUES (?, ?, ?, ?)";
 
-  // Execute the query and check if it's successful
-  if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
+  // Prepare the statement
+  if ($stmt = $conn->prepare($sql)) {
+    // Bind the parameters
+    $stmt->bind_param("ssss", $title, $event_date, $location, $advisor_name);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+      echo "Data inserted successfully!";
+    } else {
+      echo "Error: " . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
   } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error preparing the statement: " . $conn->error;
   }
-
   // Close the connection
   $conn->close();
 }
