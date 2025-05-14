@@ -1,5 +1,4 @@
-CREATE DATABASE myPetakom ;
-use database myPetakom;
+use mypetakom;
 
 CREATE TABLE LOGIN (
     login_id INT PRIMARY KEY,
