@@ -1,3 +1,21 @@
+<?php
+session_start();
+
+if (
+    isset($_SESSION['Login']) &&
+    $_SESSION['Login'] === "YES" &&
+    isset($_SESSION['role']) &&
+    $_SESSION['role'] === 'event_advisor'
+) {
+    //$fullname = htmlspecialchars($_SESSION['fullname']);
+    $username = htmlspecialchars($_SESSION['username']);
+    $id = $_SESSION['id'];
+} else {
+    echo "<h1>Access Denied</h1>";
+    echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>";  
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,10 +37,28 @@
         <div id="dropdown-content" class="dropdown-content">
             <p><strong><?php echo $username; ?></strong></p>
             <a href="#">Setting Profile</a>
-            <a href="logout.php">Logout</a>
+            <a href="../Module 2 - Event Registration/logout_event_advisor.php">Logout</a>
         </div>
     </div>
 </header>
+
+<script>
+function toggleDropdown() {
+    document.getElementById("dropdown-content").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.profile-icon')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+</script>
 
   <!-- Sidebar -->
   <div id="mySidenav" class="sidenav">
@@ -40,7 +76,7 @@
     <button class="openbtn" onclick="openNav()">☰ Menu</button>
     
 
-    <h1 style="text-align: center;">Welcome, Event Advisor</h1>
+    <h1 style="text-align: center;">Welcome, <?php echo $username?></h1>
     <div class="button-group" style="text-align: center;">
       <button type="button">Upcoming</button>
       <button type="button">Oncoming</button>

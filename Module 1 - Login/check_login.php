@@ -31,7 +31,7 @@ if ($user) {
             } elseif ($user['role'] === 'administrator') {
                 header("Location: admin_page.php");
             } elseif ($user['role'] === 'event_advisor') {
-                header("Location: advisor_page.php");
+                header("Location: ../Module 2 - Event Registration/DashboardPage.php");
             }
             exit();
         } else {
