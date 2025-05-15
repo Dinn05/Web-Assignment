@@ -35,7 +35,6 @@ if (
     <div class="profile-dropdown">
         <img src="../Images/eventadvisor.png" alt="Profile" class="profile-icon" onclick="toggleDropdown()">
         <div id="dropdown-content" class="dropdown-content">
-            <p><strong><?php echo $username; ?></strong></p>
             <a href="#">Setting Profile</a>
             <a href="../Module 2 - Event Registration/logout_event_advisor.php">Logout</a>
         </div>
@@ -76,7 +75,7 @@ window.onclick = function(event) {
     <button class="openbtn" onclick="openNav()">☰ Menu</button>
     
 
-    <h1 style="text-align: center;">Welcome, <?php echo $username?></h1>
+    <h1 style="text-align: center;">Welcome, Event Advisor</h1>
     <div class="button-group" style="text-align: center;">
       <button type="button">Upcoming</button>
       <button type="button">Oncoming</button>

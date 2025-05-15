@@ -27,7 +27,7 @@ if ($user) {
             $_SESSION['role'] = $user['role'];
 
             if ($user['role'] === 'student') {
-                header("Location: student_page.php");
+                header("Location: ../Module 1 - Login/student_page1.php");
             } elseif ($user['role'] === 'administrator') {
                 header("Location: admin_page.php");
             } elseif ($user['role'] === 'event_advisor') {
