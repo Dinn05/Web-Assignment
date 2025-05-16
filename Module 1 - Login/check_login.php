@@ -8,7 +8,6 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 $selectedRole = $_POST['role'];
 
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Get user from DB
 $stmt = mysqli_prepare($link, "SELECT * FROM login WHERE username = ?");
