@@ -75,7 +75,7 @@ window.onclick = function(event) {
     <button class="openbtn" onclick="openNav()">☰ Menu</button>
     
 
-    <h1 style="text-align: center;">Welcome, Event Advisor</h1>
+    <h1 style="text-align: center;">Welcome, <?php echo $username ?></h1>
     <div class="button-group" style="text-align: center;">
       <button type="button">Upcoming</button>
       <button type="button">Oncoming</button>

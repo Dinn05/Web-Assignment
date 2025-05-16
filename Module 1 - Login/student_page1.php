@@ -1,3 +1,21 @@
+<?php
+session_start();
+
+if (
+    isset($_SESSION['Login']) &&
+    $_SESSION['Login'] === "YES" &&
+    isset($_SESSION['role']) &&
+    $_SESSION['role'] === 'student'
+) {
+    //$fullname = htmlspecialchars($_SESSION['fullname']);
+    $username = htmlspecialchars($_SESSION['username']);
+    $id = $_SESSION['id'];
+} else {
+    echo "<h1>Access Denied</h1>";
+    echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>";  
+}
+?>
+
 
 <!DOCTYPE html>
     <head>
@@ -112,7 +130,7 @@
                     <div class="container-fluid px-4">   
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Welcome to Student Dashboard</li>
+                            <li class="breadcrumb-item active">Welcome, <?php echo $username?></li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
