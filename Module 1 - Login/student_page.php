@@ -9,7 +9,7 @@ if (
 ) {
     //$fullname = htmlspecialchars($_SESSION['fullname']);
     $username = htmlspecialchars($_SESSION['username']);
-    $id = $_SESSION['id'];
+    $id = $_SESSION['user_id'];
 } else {
 
     echo "<h1>Access Denied</h1>";

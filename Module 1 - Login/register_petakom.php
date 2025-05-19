@@ -6,6 +6,8 @@ $link = mysqli_connect("localhost", "root", "", "login") or die("Connection fail
 $upload_msg_front = '';
 $upload_msg_back = '';
 
+
+
 if (isset($_SESSION['upload_msg_front'])) {
     $upload_msg_front = $_SESSION['upload_msg_front'];
     unset($_SESSION['upload_msg_front']);
@@ -17,13 +19,13 @@ if (isset($_SESSION['upload_msg_back'])) {
 }
 
 // ✅ Get student ID
-if (!isset($_POST['id'])) {
+if (!isset($_POST['user_id'])) {
     die("Error: student_id not provided.");
 }
-$student_id = mysqli_real_escape_string($link, $_POST['id']);
+$student_id = mysqli_real_escape_string($link, $_POST['user_id']);
 
 // ✅ Fetch user data
-$query = "SELECT * FROM users WHERE id = '$student_id'";
+$query = "SELECT * FROM users WHERE user_id = '$student_id'";
 $result = mysqli_query($link, $query) or die("Query failed: " . mysqli_error($link));
 
 if ($row = mysqli_fetch_assoc($result)) {

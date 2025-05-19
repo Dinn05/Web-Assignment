@@ -3,7 +3,7 @@ session_start();
 
 $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed: " . mysqli_connect_error());
 
-$id = $_POST['id'];
+$userid = $_POST['user_id'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 $selectedRole = $_POST['role'];
@@ -20,7 +20,7 @@ if ($user) {
     if (password_verify($password, $user['password'])) {
         if ($selectedRole === $user['role']) {
             $_SESSION['Login'] = "YES";
-            $_SESSION['id'] = $user['id'];
+            $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $username;
             //$_SESSION['fullname'] = $user['fullname'];
             $_SESSION['role'] = $user['role'];
