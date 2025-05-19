@@ -9,7 +9,6 @@ if (
 ) {
     //$fullname = htmlspecialchars($_SESSION['fullname']);
     $username = htmlspecialchars($_SESSION['username']);
-    $id = $_SESSION['id'];
 } else {
     echo "<h1>Access Denied</h1>";
     echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>";  
@@ -26,7 +25,7 @@ if (
 
 </head>
 <body>
-
+  <body class="sb-nav-fixed" style="display:none;" id="page-body">
 <header class="navbar">
     <div class="logo">
       <img src="../Images/petakom logo1.png" alt="Petakom Logo">
@@ -139,6 +138,22 @@ window.onclick = function(event) {
       document.getElementById("mySidenav").style.width = "0";
       document.getElementById("main").style.marginLeft = "0";
     }
+  </script>
+  <script>
+    // Prevent showing the dashboard on back button with invalid session
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || performance.navigation.type === 2) {
+            // Immediately hide page and redirect
+            document.getElementById("page-body").style.display = "none";
+            sessionStorage.setItem("sessionExpired", "true");
+            window.location.href = "../Module 1 - Login/login.php";
+        }
+    });
+
+    // Reveal the body only if session is valid
+    window.onload = function () {
+        document.getElementById("page-body").style.display = "block";
+    };
   </script>
 
 </body>

@@ -86,5 +86,13 @@ if (isset($_SESSION['error'])) {
             });
         }
     </script>
+    <script>
+    // Show alert if redirected from expired session
+    if (sessionStorage.getItem("sessionExpired")) {
+        alert("⚠ INVALID SESSION. Please log in again.");
+        sessionStorage.removeItem("sessionExpired");
+    }
+</script>
+
 </body>
 </html>

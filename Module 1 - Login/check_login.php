@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
+header("Expires: Fri, 01 Jan 1990 00:00:00 GMT");
+
+
 $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed: " . mysqli_connect_error());
 
 $username = $_POST['username'];
@@ -25,7 +30,7 @@ if ($user) {
             $_SESSION['role'] = $user['role'];
 
             if ($user['role'] === 'student') {
-                header("Location: ../Module 1 - Login/student_page1.php");
+                header("Location: ../Module 1 - Login/student_page.php");
             } elseif ($user['role'] === 'administrator') {
                 header("Location: admin_page.php");
             } elseif ($user['role'] === 'event_advisor') {

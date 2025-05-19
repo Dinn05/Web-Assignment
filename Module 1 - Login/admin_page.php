@@ -71,7 +71,7 @@ if (
     </style>
 </head>
 <body>
-
+    <body class="sb-nav-fixed" style="display:none;" id="page-body">
 <div class="sidebar d-flex flex-column p-3">
     <h4 class="text-white">ADMINISTRATOR</h4>
     <hr class="text-white">
@@ -174,6 +174,22 @@ window.onclick = function(event) {
         }
     }
 }
+</script>
+<script>
+    // Prevent showing the dashboard on back button with invalid session
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || performance.navigation.type === 2) {
+            // Immediately hide page and redirect
+            document.getElementById("page-body").style.display = "none";
+            sessionStorage.setItem("sessionExpired", "true");
+            window.location.href = "../Module 1 - Login/login.php";
+        }
+    });
+
+    // Reveal the body only if session is valid
+    window.onload = function () {
+        document.getElementById("page-body").style.display = "block";
+    };
 </script>
 
 </body>
