@@ -3,7 +3,6 @@ session_start();
 
 $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed: " . mysqli_connect_error());
 
-$userid = $_POST['user_id'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 $selectedRole = $_POST['role'];

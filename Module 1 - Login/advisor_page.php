@@ -9,7 +9,6 @@ if (
 ) {
     //$fullname = htmlspecialchars($_SESSION['fullname']);
     $username = htmlspecialchars($_SESSION['username']);
-    $userid = $_SESSION['user_id'];
 } else {
     echo "<h1>Access Denied</h1>";
     echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>"; 
