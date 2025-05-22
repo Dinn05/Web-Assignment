@@ -13,13 +13,35 @@ if (
     isset($_SESSION['role']) &&
     $_SESSION['role'] === 'student'
 ) {
-    //$fullname = htmlspecialchars($_SESSION['fullname']);
     $username = htmlspecialchars($_SESSION['username']);
+
+    // ✅ Connect to database
+    $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed");
+
+    // ✅ Get login_id using username
+    $loginQuery = "SELECT login_id FROM login WHERE username = '$username'";
+    $loginResult = mysqli_query($link, $loginQuery);
+    if ($loginRow = mysqli_fetch_assoc($loginResult)) {
+        $login_id = $loginRow['login_id'];
+
+        // ✅ Get student_id using login_id
+        $studentQuery = "SELECT student_id FROM student WHERE login_id = '$login_id'";
+        $studentResult = mysqli_query($link, $studentQuery);
+        if ($studentRow = mysqli_fetch_assoc($studentResult)) {
+            $_SESSION['student_id'] = $studentRow['student_id']; // ✅ Now ready for use in register_petakom.php
+        } else {
+            die("Student ID not found.");
+        }
+    } else {
+        die("Login ID not found.");
+    }
+
 } else {
     echo "<h1>Access Denied</h1>";
-    echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>";  
+    echo "<p>You must <a href='login.php'>login</a> as a student to access this page.</p>";
 }
 ?>
+
 
 
 <!DOCTYPE html>
