@@ -1,3 +1,38 @@
+<?php
+include 'check_committe.php';
+
+$event_result = $conn->query("SELECT event_id, title FROM EVENT");
+$student_result = $conn->query("SELECT login_id, student_id FROM STUDENT");
+
+// Proses borang
+if (isset($_POST['submit'])) {
+    $event_id = $_POST['event_id'];
+    $student_id = $_POST['student_id'];
+    $role = $_POST['role'];
+
+    // Semak jika sudah berdaftar
+    $check = $conn->prepare("SELECT * FROM COMMITTEE WHERE event_id = ? AND student_id = ?");
+    $check->bind_param("ii", $event_id, $student_id);
+    $check->execute();
+    $result = $check->get_result();
+
+    if ($result->num_rows > 0) {
+        $message = "<p style='color:red;'>❌ Pelajar ini sudah didaftarkan sebagai jawatankuasa untuk aktiviti ini.</p>";
+    } else {
+        // Masukkan ke dalam COMMITTEE
+        $stmt = $conn->prepare("INSERT INTO COMMITTEE (event_id, student_id, position) VALUES (?, ?, ?)");
+        $stmt->bind_param("iis", $event_id, $student_id, $role);
+
+        if ($stmt->execute()) {
+            $message = "<p style='color:green;'>✅ Jawatankuasa berjaya didaftarkan!</p>";
+        } else {
+            $message = "<p style='color:red;'>❌ Ralat: " . $stmt->error . "</p>";
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +57,7 @@
     </div>
 </header>
 
+
  <!-- Sidebar -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -32,22 +68,39 @@
     <a href="QRCodeEventPage.php">QR Code</a>
   </div>
 
-    <button class="openbtn" onclick="openNav()">☰ Menu</button>
-
+  <button class="openbtn" onclick="openNav()">☰ Menu</button>
+  
   <div class="container">
     <h2>Assign Student to Event Committee</h2>
-    <form action="#" method="POST">
-      <label for="event">Event:</label>
-      <input type="text" id="event" name="event" required>
+    <!--Success Message---------------------->
+    <div id="success-alert" style="text-align: center">
+        <?php echo $message; ?>
+    </div>
+    <form action="check_committe.php" method="POST">
 
-      <label for="student-id">Student ID:</label>
-      <input type="text" id="student-id" name="student-id" required>
+      <label for="event_id">Event:</label>
 
-      <label for="role">Role in Committee:</label>
-      <input type="text" id="role" name="role" required>
+      <select name="event_id" onchange="check_committe()" required>
+        <option value="">--Pilih Aktiviti--</option>
+          <?php while ($row = $event_result->fetch_assoc()): ?>
+            <option value="<?= $row['event_id'] ?>"><?= $row['title'] ?></option>
+          <?php endwhile; ?>
+      </select><br><br>
 
-      <button type="submit">Assign Committee Member</button>
-    </form>
+  <label for="student_id">Student:</label>
+  <select name="student_id" onchange="checkCommittee()" required>
+    <option value="">--Pilih Pelajar--</option>
+    <?php while ($row = $student_result->fetch_assoc()): ?>
+      <option value="<?= $row['login_id'] ?>"><?= $row['student_id'] ?></option>
+    <?php endwhile; ?>
+  </select><br><br>
+
+  <label for="role">Role in Committee:</label>
+  <input type="text" name="role" required><br><br>
+
+  <button type="submit" name="submit">Assign Committee Member</button>
+</form>
+
   </div>
 
     <!-- JavaScript for Sidenav Push -->
@@ -62,5 +115,38 @@
       document.getElementById("main").style.marginLeft = "0";
     }
   </script>
+  <script>
+function checkCommittee() {
+  const eventId = document.querySelector('[name="event_id"]').value;
+  const studentId = document.querySelector('[name="student_id"]').value;
+
+  if (eventId && studentId) {
+    const formData = new FormData();
+    formData.append('event_id', eventId);
+    formData.append('student_id', studentId);
+
+    fetch('check_committe.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      const statusMsg = document.getElementById('statusMsg');
+      if (data === 'exists') {
+        statusMsg.innerHTML = "<span style='color:red;'>Pelajar ini sudah berdaftar untuk aktiviti ini.</span>";
+      } else {
+        statusMsg.innerHTML = "<span style='color:green;'>Pelajar boleh didaftarkan.</span>";
+      }
+    });
+  }
+}
+  setTimeout(function () {
+    var alert = document.getElementById("success-alert");
+    if (alert) {
+      alert.style.display = "none";
+    }
+  }, 3000); // 5000 milisaat = 5 saat
+</script>
+
 </body>
 </html>

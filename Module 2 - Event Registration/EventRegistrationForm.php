@@ -1,3 +1,13 @@
+<?php
+session_start();
+$successMessage = "";
+
+if (isset($_SESSION['success_message'])) {
+    $successMessage = $_SESSION['success_message'];
+    unset($_SESSION['success_message']); // buang selepas paparkan
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,21 +46,40 @@
   <div class="container">
     
     <div class="main">
+
       <h1 style="text-align: center">Event Registration Form</h1>
-      <form action="register_process.php" method="POST">
+       
+        <?php if (!empty($successMessage)) : ?>
+          <div id="success-alert" style="padding: 10px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; margin-bottom: 20px;">
+          <?php echo $successMessage; ?>
+          </div>
+        <?php endif; ?>
+
+      <form action="check_event.php" method="POST" enctype="multipart/form-data">
+        
         <label>Event Name:</label>
         <input type="text" name="title" placeholder="Enter event name" >
 
+        <label>Description:</label>
+        <input type="text" name="description" placeholder="Enter Description">
+        
+        <label>Location:</label>
+        <input type="text" name="location" placeholder="Enter location">
+       
         <label>Date:</label>
         <input type="date" name="event_date">
 
-        <label>Location:</label>
-        <input type="text" name="location" placeholder="Enter location">
+        <label>Status:</label>
+          <select name="status" required>
+            <option value="active">Active</option>
+            <option value="postponed">Pending</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
 
-        <label>Advisor Name:</label>
-        <input type="text" name="description" placeholder="Enter advisor name">
+        <label>Approval Letter:</label>
+        <input type="file" name="approval_letter" accept=".pdf,.jpg,.jpeg,.png" required>
 
-        <button type="submit" class="edit-btn">Submit</button>
+        <button type="submit" name="submit" class="edit-btn">Submit</button>
       </form>
     </div>
   </div>
@@ -69,5 +98,14 @@
     }
   </script>
 
+<script>
+  // Sembunyikan mesej selepas 5 saat
+  setTimeout(function () {
+    var alert = document.getElementById("success-alert");
+    if (alert) {
+      alert.style.display = "none";
+    }
+  }, 3000); // 5000 milisaat = 5 saat
+</script>
 </body>
 </html>
