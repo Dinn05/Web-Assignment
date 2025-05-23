@@ -51,7 +51,7 @@ if (
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Dashboard Student</title>
         <link href="../Module 1 - Login/Style/teststyle.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -141,7 +141,7 @@ if (
                             </a>
                             <a class="nav-link" href="../Module 1 - Login/view_student_profile.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Change Profile Student
+                                View Profile Student
                             </a>
                         </div>
                     </div>

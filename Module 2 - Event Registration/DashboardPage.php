@@ -7,20 +7,43 @@ if (
     isset($_SESSION['role']) &&
     $_SESSION['role'] === 'event_advisor'
 ) {
-    //$fullname = htmlspecialchars($_SESSION['fullname']);
     $username = htmlspecialchars($_SESSION['username']);
+
+    // ✅ Connect to database
+    $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed");
+
+    // ✅ Get login_id using username
+    $loginQuery = "SELECT login_id FROM login WHERE username = '$username'";
+    $loginResult = mysqli_query($link, $loginQuery);
+    if ($loginRow = mysqli_fetch_assoc($loginResult)) {
+        $login_id = $loginRow['login_id'];
+
+        // ✅ Get staff_id using login_id
+        $staffQuery = "SELECT staff_id FROM staff WHERE login_id = '$login_id'";
+        $staffResult = mysqli_query($link, $staffQuery);
+        if ($staffRow = mysqli_fetch_assoc($staffResult)) {
+            $_SESSION['staff_id'] = $staffRow['staff_id']; // ✅ Ready to use in profile page
+        } else {
+            die("Staff ID not found.");
+        }
+    } else {
+        die("Login ID not found.");
+    }
+
 } else {
     echo "<h1>Access Denied</h1>";
-    echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>";  
+    echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>";
+    exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard - Petakom</title>
+  <title>Dashboard Event Advisor</title>
     <link rel="stylesheet" href="Style/dashboard.css">
 
 </head>
@@ -34,7 +57,7 @@ if (
     <div class="profile-dropdown">
         <img src="../Images/eventadvisor.png" alt="Profile" class="profile-icon" onclick="toggleDropdown()">
         <div id="dropdown-content" class="dropdown-content">
-            <a href="#">Setting Profile</a>
+            <a href="../Module 2 - Event Registration/view_advisor_page.php">Setting Profile</a>
             <a href="../Module 2 - Event Registration/logout_event_advisor.php">Logout</a>
         </div>
     </div>

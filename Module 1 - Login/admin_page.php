@@ -27,7 +27,7 @@ if (
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Advisor Dashboard</title>
+    <title>Administrator Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -58,6 +58,7 @@ if (
             background-color: #fff;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
+            white-space: nowrap;
         }
         .dropdown-content.show {
             display: block;
@@ -89,8 +90,7 @@ if (
         <div class="position-relative">
             <img src="../Images/eventadvisor.png" class="profile-icon" onclick="toggleDropdown()">
             <div id="dropdown-content" class="dropdown-content p-3">
-                <p><strong><?php echo $username; ?></strong></p>
-                <a class="d-block">Setting Profile</a>
+                <a class="d-block" href="../Module 1 - Login/view_admin_profile.php">Setting Profile</a>
                 <a href="logout.php" class="d-block text-danger">Logout</a>
             </div>
         </div>

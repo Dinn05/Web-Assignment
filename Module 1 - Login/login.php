@@ -16,7 +16,7 @@ if (isset($_SESSION['error'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Login Page</title>
 
     <!-- Prevent browser caching -->
     <meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate">

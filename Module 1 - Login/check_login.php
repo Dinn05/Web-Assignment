@@ -24,7 +24,7 @@ if ($user) {
     if (password_verify($password, $user['password'])) {
         if ($selectedRole === $user['role']) {
             $_SESSION['Login'] = "YES";
-            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['login_id'] = $user['login_id'];
             $_SESSION['username'] = $username;
             //$_SESSION['fullname'] = $user['fullname'];
             $_SESSION['role'] = $user['role'];
@@ -32,7 +32,7 @@ if ($user) {
             if ($user['role'] === 'student') {
                 header("Location: ../Module 1 - Login/student_page.php");
             } elseif ($user['role'] === 'administrator') {
-                header("Location: admin_page.php");
+                header("Location: ../Module 1 - Login/admin_page.php");
             } elseif ($user['role'] === 'event_advisor') {
                 header("Location: ../Module 2 - Event Registration/DashboardPage.php");
             }
