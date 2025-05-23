@@ -36,18 +36,81 @@
 
   <div class="container">
     <h2>Merit Application</h2>
-    <form action="#" method="POST">
-      <label for="event-name">Event Name:</label>
-      <input type="text" id="event-name" name="event-name" required>
+<!--Succesful Message-->
+<?php
+if (isset($_GET['message'])) {
+    $msg = "";
+    $color = "";
 
-      <label for="student-id">Student ID:</label>
-      <input type="text" id="student-id" name="student-id" required>
+    if ($_GET['message'] == 'success') {
+        $msg = "🎉 Merit application submitted successfully!";
+        $color = "#d4edda";
+    } elseif ($_GET['message'] == 'error') {
+        $msg = "❌ Database error. Please try again.";
+        $color = "#f8d7da";
+    } elseif ($_GET['message'] == 'empty_fields') {
+        $msg = "⚠️ Please fill in all required fields.";
+        $color = "#fff3cd";
+    } elseif ($_GET['message'] == 'invalid_access') {
+        $msg = "⛔ Unauthorized access.";
+        $color = "#e2e3e5";
+    }
 
-      <label for="justification">Justification Letter:</label>
-      <input type="file" id="justification" name="justification" required>
+    if ($msg != "") {
+        echo "<div id='msg-box' style='background-color: $color; padding: 10px; border-radius: 5px; margin-bottom: 10px;'>$msg</div>";
+    }
+}
+?>
 
-      <button type="submit">Submit Application</button>
-    </form>
+
+    <form action="check_Merit.php" method="POST">
+  <label for="event-id">Event:</label>
+  <select id="event-id" name="event_id" required>
+    <option value="">--Select Event--</option>
+    <?php
+    // Connect to DB and fetch events
+    $conn = new mysqli("localhost", "root", "", "mypetakom");
+    $result = $conn->query("SELECT event_id, title FROM event");
+    while($row = $result->fetch_assoc()) {
+        echo "<option value='" . $row['event_id'] . "'>" . $row['title'] . "</option>";
+    }
+    ?>
+  </select>
+
+  <label for="student-id">Student:</label>
+  <select id="student-id" name="student_id" required>
+    <option value="">--Select Student--</option>
+    <?php
+    $students = $conn->query("SELECT login_id, name FROM student");
+    while($row = $students->fetch_assoc()) {
+        echo "<option value='" . $row['login_id'] . "'>" . $row['name'] . "</option>";
+    }
+    ?>
+  </select>
+
+  <label for="role">Role:</label>
+  <select id="role" name="role" required>
+    <option value="committee">Committee</option>
+    <option value="participant">Participant</option>
+  </select>
+
+  <label for="meritscore">Merit Level:</label>
+  <select id="meritscore" name="meritscore_id" required>
+    <option value="">--Select Merit Level--</option>
+    <?php
+    $merits = $conn->query("SELECT meritscore_id, merit_description FROM meritscore");
+    while($row = $merits->fetch_assoc()) {
+        echo "<option value='" . $row['meritscore_id'] . "'>" . $row['merit_description'] . "</option>";
+    }
+    ?>
+  </select>
+
+  <label for="semester">Semester:</label>
+  <input type="text" id="semester" name="semester" placeholder="e.g. 2/2024" required>
+
+  <button type="submit" name="submit">Submit Application</button>
+</form>
+
   </div>
   <!-- JavaScript for Sidenav Push -->
   <script>
@@ -61,6 +124,15 @@
       document.getElementById("main").style.marginLeft = "0";
     }
   </script>
+<script>
+  // Auto-hide the message box after 3 seconds
+  setTimeout(() => {
+    const msgBox = document.getElementById('msg-box');
+    if (msgBox) {
+      msgBox.style.display = 'none';
+    }
+  }, 3000);
+</script>
 
 </body>
 </html>
