@@ -28,6 +28,6 @@ if ($update_result) {
     $_SESSION['upload_msg'] = "❌ Failed to submit application: " . mysqli_error($link);
 }
 
-header("Location: register_petakom.php");
+header("Location: ../Module 1 - Login/register_petakom.php");
 exit();
 ?>

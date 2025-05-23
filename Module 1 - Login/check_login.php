@@ -39,17 +39,17 @@ if ($user) {
             exit();
         } else {
             $_SESSION['error'] = "⚠ Wrong access: Role does not match.";
-            header("Location: login.php");
+            header("Location: ../Module 1 - Login/login.php");
             exit();
         }
     } else {
         $_SESSION['error'] = "❌ Incorrect password.";
-        header("Location: login.php");
+        header("Location: ../Module 1 - Login/login.php");
         exit();
     }
 } else {
     $_SESSION['error'] = "❌ Username not found.";
-    header("Location: login.php");
+    header("Location: ../Module 1 - Login/login.php");
     exit();
 }
 ?>
