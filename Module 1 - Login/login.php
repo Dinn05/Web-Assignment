@@ -56,15 +56,8 @@ if (isset($_SESSION['error'])) {
 
             <div class="options">
                 <label><input type="checkbox"> Remember me</label>
-                <a href="#">Forgot password?</a>
             </div>
-
             <input type="submit" class="login-btn" value="Login">
-
-            <div class="register-link">
-                Don't have an account?
-                <a href="../Module 1 - Login/register_user.php">Register</a>
-            </div>
         </form>
     </div>
 

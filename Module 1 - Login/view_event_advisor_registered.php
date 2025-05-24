@@ -7,13 +7,13 @@ if (!isset($_SESSION['Login']) || $_SESSION['Login'] !== "YES" || $_SESSION['rol
 }
 
 $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed: " . mysqli_connect_error());
-$result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student.login_id = login.login_id WHERE login.role = 'student'");
+$result = mysqli_query($link, "SELECT * FROM staff INNER JOIN login ON staff.login_id = login.login_id WHERE login.role = 'event_advisor'");
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View Student Registered</title>
+    <title>View Event Advisor Registered</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #f0f2f5; padding: 20px; }
@@ -23,8 +23,8 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
         th { background-color: #343a40; color: #fff; text-align: center; }
         td { vertical-align: middle; text-align: center; }
         img.profile-pic {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
             border-radius: 8px;
             display: block;
@@ -33,10 +33,10 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
     </style>
 </head>
 <body>
-    <h2>Registered Students</h2>
+    <h2>Registered Event Advisors</h2>
     <div class="btn-top">
         <a href="admin_page.php" class="btn btn-secondary">Return to Dashboard</a>
-        <a href="../Module 1 - Login/admin_add_student.php" class="btn btn-success">+ Add New Student</a>
+        <a href="../Module 1 - Login/admin_add_advisor.php" class="btn btn-success">+ Add New Advisor</a>
     </div>
 
     <table class="table table-bordered table-hover">
@@ -44,9 +44,8 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
             <tr>
                 <th>Profile Picture</th>
                 <th>Full Name</th>
-                <th>Matric</th>
                 <th>Email</th>
-                <th>Program</th>
+                <th>Phone Number</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -60,13 +59,12 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
                         <span>No Image</span>
                     <?php endif; ?>
                 </td>
-                <td><?= htmlspecialchars($row['name']) ?></td>
-                <td><?= htmlspecialchars($row['student_matric']) ?></td>
+                <td><?= htmlspecialchars($row['fullname']) ?></td>
                 <td><?= htmlspecialchars($row['email']) ?></td>
-                <td><?= htmlspecialchars($row['program']) ?></td>
+                <td><?= htmlspecialchars($row['phone_num']) ?></td>
                 <td>
-                    <a href="../Module 1 - Login/admin_edit_student.php?student_id=<?= $row['student_id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="../Module 1 - Login/admin_delete_student.php?student_id=<?= $row['student_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                    <a href="../Module 1 - Login/admin_edit_advisor.php?staff_id=<?= $row['staff_id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="../Module 1 - Login/admin_delete_advisor.php?staff_id=<?= $row['staff_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this advisor?');">Delete</a>
                 </td>
             </tr>
         <?php endwhile; ?>

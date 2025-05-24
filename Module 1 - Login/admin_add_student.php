@@ -8,13 +8,40 @@ if (!isset($_SESSION['Login']) || $_SESSION['Login'] !== "YES" || $_SESSION['rol
 
 $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed: " . mysqli_connect_error());
 
+$existingUsernames = [];
+$existingMatricNumbers = [];
+
+$usersResult = mysqli_query($link, "SELECT username FROM login");
+while ($row = mysqli_fetch_assoc($usersResult)) {
+    $existingUsernames[] = strtolower(htmlspecialchars($row['username']));
+}
+
+$matricResult = mysqli_query($link, "SELECT student_matric FROM student");
+while ($row = mysqli_fetch_assoc($matricResult)) {
+    $existingMatricNumbers[] = strtolower(htmlspecialchars($row['student_matric']));
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    $username = mysqli_real_escape_string($link, $_POST['username']);
+    $username = htmlspecialchars(strtolower(trim($_POST['username'])));
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $name = mysqli_real_escape_string($link, $_POST['name']);
-    $matric = mysqli_real_escape_string($link, $_POST['student_matric']);
+    $matric = htmlspecialchars(strtolower(trim($_POST['student_matric'])));
     $email = mysqli_real_escape_string($link, $_POST['email']);
     $program = mysqli_real_escape_string($link, $_POST['program']);
+
+    // Check for duplicate username or matric
+    $checkUser = mysqli_query($link, "SELECT * FROM login WHERE LOWER(username) = '$username'");
+    $checkMatric = mysqli_query($link, "SELECT * FROM student WHERE LOWER(student_matric) = '$matric'");
+
+    if (mysqli_num_rows($checkUser) > 0) {
+        echo "<script>alert('Username already exists!'); window.history.back();</script>";
+        exit;
+    }
+
+    if (mysqli_num_rows($checkMatric) > 0) {
+        echo "<script>alert('Matric number already exists!'); window.history.back();</script>";
+        exit;
+    }
 
     // Handle image upload
     $profile_picture = NULL;
@@ -55,13 +82,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 <head>
     <title>Add New Student</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        const existingUsernames = <?= json_encode($existingUsernames) ?>;
+        const existingMatricNumbers = <?= json_encode($existingMatricNumbers) ?>;
+
+        function validateUsername(input) {
+            const feedback = document.getElementById("usernameFeedback");
+            if (existingUsernames.includes(input.value.trim().toLowerCase())) {
+                feedback.innerText = "❌ Username already exists.";
+                feedback.style.color = "red";
+            } else {
+                feedback.innerText = "✔ Username is available.";
+                feedback.style.color = "green";
+            }
+        }
+
+        function validateMatric(input) {
+            const feedback = document.getElementById("matricFeedback");
+            if (existingMatricNumbers.includes(input.value.trim().toLowerCase())) {
+                feedback.innerText = "❌ Matric number already exists.";
+                feedback.style.color = "red";
+            } else {
+                feedback.innerText = "✔ Matric number is available.";
+                feedback.style.color = "green";
+            }
+        }
+    </script>
 </head>
 <body class="p-4">
     <h2>Add New Student</h2>
     <form method="POST" enctype="multipart/form-data" style="max-width: 600px; margin: auto;">
         <div class="mb-3">
             <label class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" required>
+            <input type="text" name="username" class="form-control" required onkeyup="validateUsername(this)">
+            <div id="usernameFeedback" class="form-text"></div>
         </div>
         <div class="mb-3">
             <label class="form-label">Password</label>
@@ -73,7 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         </div>
         <div class="mb-3">
             <label class="form-label">Matric Number</label>
-            <input type="text" name="student_matric" class="form-control" required>
+            <input type="text" name="student_matric" class="form-control" required onkeyup="validateMatric(this)">
+            <div id="matricFeedback" class="form-text"></div>
         </div>
         <div class="mb-3">
             <label class="form-label">Email</label>

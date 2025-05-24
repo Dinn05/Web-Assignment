@@ -16,7 +16,7 @@ if (
     $username = htmlspecialchars($_SESSION['username']);
 } else {
     echo "<h1>Access Denied</h1>";
-    echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as an event advisor to access this page.</p>";  
+    echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator to access this page.</p>";  
     exit();
 }
 ?>
@@ -80,7 +80,7 @@ if (
         <li class="nav-item"><a href="#" class="nav-link active">Dashboard</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Events</a></li>
         <li class="nav-item"><a href="../Module 1 - Login/view_student_registered.php" class="nav-link">View Student Registered</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">View Event Advisor Registered</a></li>
+        <li class="nav-item"><a href="../Module 1 - Login/view_event_advisor_registered.php" class="nav-link">View Event Advisor Registered</a></li>
     </ul>
 </div>
 
