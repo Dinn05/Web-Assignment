@@ -66,7 +66,11 @@ $result = $conn->query($sql);
 
 <div class="container">
   <h2>Event QR Codes</h2>
-
+<?php if (isset($_GET['message']) && $_GET['message'] == 'deleted'): ?>
+  <div id="success-message" style="padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px; margin-bottom: 20px;">
+    Event deleted successfully.
+  </div>
+<?php endif; ?>
   <?php
   if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -92,11 +96,18 @@ $result = $conn->query($sql);
              style="display: inline-block; padding: 10px 20px; background-color: grey; color: white; text-decoration: none; border-radius: 5px; margin-right: 10px;">
              Edit
           </a>
-          <a href="delete_event.php?event_id=<?php echo $event_id; ?>"
-             style="display: inline-block; padding: 10px 20px; background-color: red; color: white; text-decoration: none; border-radius: 5px;"
-             onclick="return confirm('Are you sure you want to delete this event?');">
-             Delete
-          </a>
+    <!------------------------------------------->
+          <a href="delete_event.php?event_id=<?php echo $event_id; ?>" 
+   onclick="return confirmDelete();" 
+   style="display: inline-block; padding: 10px 20px; background-color: red; color: white; text-decoration: none; border-radius: 5px;">
+   Delete
+</a>
+
+<script>
+function confirmDelete() {
+  return confirm('Are you sure you want to delete this event?');
+}
+</script>
         </div>
         <div class="clear"></div>
       </div>
@@ -122,5 +133,19 @@ function toggleDropdown() {
   dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 }
 </script>
+<script>
+  // Hide success message after 3 seconds
+  window.onload = function () {
+    const message = document.getElementById('success-message');
+    if (message) {
+      setTimeout(() => {
+        message.style.transition = 'opacity 0.5s ease';
+        message.style.opacity = '0';
+        setTimeout(() => message.remove(), 500); // Remove after fade out
+      }, 3000);
+    }
+  };
+</script>
+
 </body>
 </html>
