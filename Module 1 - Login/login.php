@@ -32,7 +32,7 @@ if (isset($_SESSION['error'])) {
     </div>
 
     <div class="login-wrapper">
-        <form class="login-box" action="check_login.php" method="POST">
+        <form class="login-box" action="../Module 1 - Login/check_login.php" method="POST">
             <h2>Login</h2>
 
             <div class="input-field">
