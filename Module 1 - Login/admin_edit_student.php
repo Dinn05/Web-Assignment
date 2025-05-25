@@ -82,9 +82,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             text-align:center;
 
         }
+
+        body {
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .form-container {
+        max-width: 500px;
+        width: 100%;
+    }
     </style>
 </head>
 <body class="p-4">
+    <div class="container form-container bg-white p-4 shadow rounded">
     <h2>Edit Student</h2>
     <form method="POST" enctype="multipart/form-data" class="mt-4" style="max-width: 600px; margin: auto;">
         <div class="mb-3">
@@ -117,5 +132,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
         <button type="submit" name="update" class="btn btn-primary">Update Student</button>
         <a href="view_student_registered.php" class="btn btn-secondary">Cancel</a>
     </form>
+    </div>
 </body>
 </html>

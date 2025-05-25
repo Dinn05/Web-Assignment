@@ -65,14 +65,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
 <head>
     <title>Edit Advisor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 450px;
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            display: block;
+            margin: 0 auto 15px;
+            width: 120px;
+            height: auto;
+            border-radius: 6px;
+            border: 2px solid #007bff;
+        }
+
+        .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+    </style>
 </head>
-<body class="bg-light p-5">
-    <div class="container bg-white p-4 shadow rounded">
+<body>
+    <div class="form-container">
         <h2 class="text-center mb-4">Edit Event Advisor</h2>
         <form method="POST" enctype="multipart/form-data">
             <?php if (!empty($advisor['profile_picture'])): ?>
-                <img src="<?= $advisor['profile_picture'] ?>" class="mb-3" width="120">
-                <div><input type="checkbox" name="delete_existing_picture" value="1"> Delete current image</div>
+                <img src="<?= $advisor['profile_picture'] ?>" alt="Profile Picture">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="delete_existing_picture" value="1" id="deleteImage">
+                    <label class="form-check-label" for="deleteImage">Delete current image</label>
+                </div>
             <?php endif; ?>
 
             <div class="mb-3">

@@ -80,6 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        h2{
+            text-align:center;
+        }
+
+    </style>
     <title>Add New Student</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script>
