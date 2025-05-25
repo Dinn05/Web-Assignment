@@ -127,6 +127,22 @@ window.addEventListener('pageshow', function(event) {
 window.onload = function () {
     document.getElementById("page-body").style.display = "block";
 };
+
+    // Prevent showing the dashboard on back button with invalid session
+        window.addEventListener('pageshow', function(event) {
+        if (event.persisted || performance.navigation.type === 2) {
+            // Immediately hide page and redirect
+            document.getElementById("page-body").style.display = "none";
+            sessionStorage.setItem("sessionExpired", "true");
+            window.location.href = "../Module 1 - Login/login.php";
+        }
+        });
+
+    // Reveal the body only if session is valid
+        window.onload = function () {
+        document.getElementById("page-body").style.display = "block";
+        };
+        
 </script>
 
 </body>
