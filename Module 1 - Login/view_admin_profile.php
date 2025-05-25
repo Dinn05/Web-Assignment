@@ -85,34 +85,118 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
 <head>
     <title>Admin Profile</title>
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #f9f9f9; padding: 40px; margin: 0; }
-        form {
-            max-width: 600px; margin: auto; background: #fff;
-            padding: 30px; border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center;
-        }
-        h2 { margin-bottom: 30px; text-align: center; }
-        label { display: block; margin-top: 15px; font-weight: 600; text-align: left; }
-        input[type="text"], input[type="email"], input[type="file"] {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-top: 5px;
-        }
-        input[disabled] { background-color: #e9ecef; cursor: not-allowed; }
-        img {
-            display: block; margin: 20px auto 10px;
-            width: 150px; height: auto; border-radius: 6px; border: 1px solid #ccc;
-        }
-        button {
-            width: 100%; padding: 10px; font-weight: 600;
-            border: none; border-radius: 6px; margin-top: 10px;
-            cursor: pointer;
-        }
-        .btn-primary { background-color: #007bff; color: white; }
-        .btn-secondary { background-color: #6c757d; color: white; }
-        .btn-danger { background-color: #dc3545; color: white; }
-        .success { color: green; font-weight: bold; }
-        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; }
-    </style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        background-color: #dbeafe;
+        margin: 0;
+        padding: 40px;
+    }
+
+    form {
+        max-width: 400px;
+        margin: auto;
+        background: white;
+        padding: 30px 25px;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h2 {
+        margin-bottom: 25px;
+        font-size: 22px;
+        font-weight: bold;
+        color: #1e3a8a;
+        text-align:center;
+    }
+
+    img {
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 15px;
+    border: 3px solid #007bff;
+    border-radius: 5px; /* sharp corners */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+    label {
+        text-align: left;
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"] {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        background-color: #f8fafc;
+        margin-bottom: 10px;
+    }
+
+    input[disabled] {
+        background-color: #e5e7eb;
+        cursor: not-allowed;
+    }
+
+    .btn-group {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background-color: #3b82f6;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #6b7280;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-danger {
+        background-color: #ef4444;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        width: 100%;
+    }
+
+    .success {
+        color: #16a34a;
+        font-weight: 500;
+        margin: 5px 0;
+    }
+</style>
+
     <script>
         function enableEdit() {
             document.querySelectorAll("input").forEach(el => el.disabled = false);

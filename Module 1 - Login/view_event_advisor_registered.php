@@ -16,21 +16,88 @@ $result = mysqli_query($link, "SELECT * FROM staff INNER JOIN login ON staff.log
     <title>View Event Advisor Registered</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f0f2f5; padding: 20px; }
-        h2 { text-align: center; margin-bottom: 30px; }
-        .btn-top { margin-bottom: 20px; display: flex; justify-content: space-between; }
-        table { background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        th { background-color: #343a40; color: #fff; text-align: center; }
-        td { vertical-align: middle; text-align: center; }
-        img.profile-pic {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            display: block;
-            margin: auto;
+    body {
+        background: linear-gradient(to right, #e0eafc, #cfdef3);
+        padding: 40px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .btn-top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .btn {
+        border-radius: 25px;
+        font-weight: 500;
+        padding: 10px 20px;
+    }
+
+    .table-container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    table th {
+        background-color: #cfe2ff;
+        color: #000;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    img.profile-pic {
+        width: 25%;
+        height: 25%;
+        object-fit: cover;
+        border-radius: 5px;
+        border: 3px solid #007bff;
+        margin: auto;
+    }
+
+    .btn-sm {
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 20px;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #000;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    @media (max-width: 768px) {
+        .btn-top {
+            flex-direction: column;
+            align-items: center;
         }
-    </style>
+    }
+</style>
+
+
 </head>
 <body>
     <h2>Registered Event Advisors</h2>
@@ -39,8 +106,9 @@ $result = mysqli_query($link, "SELECT * FROM staff INNER JOIN login ON staff.log
         <a href="../Module 1 - Login/admin_add_advisor.php" class="btn btn-success">+ Add New Advisor</a>
     </div>
 
-    <table class="table table-bordered table-hover">
-        <thead>
+    <div class="table-container">
+    <table class="table table-bordered table-hover align-middle text-center">
+        <thead class="table-primary">
             <tr>
                 <th>Profile Picture</th>
                 <th>Full Name</th>
@@ -50,25 +118,30 @@ $result = mysqli_query($link, "SELECT * FROM staff INNER JOIN login ON staff.log
             </tr>
         </thead>
         <tbody>
-        <?php while ($row = mysqli_fetch_assoc($result)): ?>
-            <tr>
-                <td>
-                    <?php if (!empty($row['profile_picture'])): ?>
-                        <img src="<?= $row['profile_picture'] ?>" alt="Profile" class="profile-pic">
-                    <?php else: ?>
-                        <span>No Image</span>
-                    <?php endif; ?>
-                </td>
-                <td><?= htmlspecialchars($row['fullname']) ?></td>
-                <td><?= htmlspecialchars($row['email']) ?></td>
-                <td><?= htmlspecialchars($row['phone_num']) ?></td>
-                <td>
-                    <a href="../Module 1 - Login/admin_edit_advisor.php?staff_id=<?= $row['staff_id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="../Module 1 - Login/admin_delete_advisor.php?staff_id=<?= $row['staff_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this advisor?');">Delete</a>
-                </td>
-            </tr>
-        <?php endwhile; ?>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <tr>
+                    <td>
+                        <?php if (!empty($row['profile_picture'])): ?>
+                            <img src="<?= $row['profile_picture'] ?>" alt="Profile" class="profile-pic">
+                        <?php else: ?>
+                            <span>No Image</span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= htmlspecialchars($row['fullname']) ?></td>
+                    <td><?= htmlspecialchars($row['email']) ?></td>
+                    <td><?= htmlspecialchars($row['phone_num']) ?></td>
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="../Module 1 - Login/admin_edit_advisor.php?staff_id=<?= $row['staff_id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="../Module 1 - Login/admin_delete_advisor.php?staff_id=<?= $row['staff_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this advisor?');">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
         </tbody>
     </table>
+</div>
+
+
 </body>
 </html>

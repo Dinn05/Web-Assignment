@@ -78,41 +78,128 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
 <head>
     <title>Advisor Profile</title>
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #f9f9f9; padding: 40px; margin: 0; }
-        form {
-            max-width: 600px;
-            margin: auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        h2 { margin-bottom: 30px; text-align: center; }
-        label { display: block; margin-top: 15px; font-weight: 600; text-align: left; }
-        input[type="text"], input[type="email"], input[type="file"] {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-top: 5px;
-        }
-        input[disabled] { background-color: #e9ecef; cursor: not-allowed; }
-        img {
-            display: block; margin: 20px auto 10px;
-            width: 150px; height: auto;
-            border-radius: 6px; border: 1px solid #ccc;
-        }
-        button {
-            width: 100%; padding: 10px;
-            font-weight: 600; border: none;
-            border-radius: 6px; margin-top: 10px;
-            cursor: pointer;
-        }
-        .btn-primary { background-color: #007bff; color: white; }
-        .btn-secondary { background-color: #6c757d; color: white; }
-        .btn-danger { background-color: #dc3545; color: white; }
-        .success { color: green; font-weight: bold; }
-        .note { font-size: 0.9rem; color: #666; margin-top: 5px; }
-        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 30px; }
-    </style>
+    * {
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(to right, #e0eafc, #cfdef3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+    }
+
+    form {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    img#preview {
+        max-width: 50%;
+        height: auto;
+        margin-bottom: 15px;
+        border: 3px solid #007bff;
+        border-radius: 5px; /* Sharp edges */
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    label {
+        text-align: left;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"] {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    input[disabled] {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 25px;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+        font-size: 15px;
+        cursor: pointer; 
+    }
+
+    .btn-primary {
+        background-color: #4a90e2;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #357bd8;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .success {
+        color: green;
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+
+    #no-picture-note {
+        color: #666;
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    .btn-group {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+</style>
+
     <script>
         function enableEdit() {
             document.querySelectorAll("input").forEach(el => el.disabled = false);

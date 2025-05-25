@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Prevent browser caching (forces reload, blocks back-button access after logout)
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
@@ -12,79 +11,92 @@ if (
     isset($_SESSION['role']) &&
     $_SESSION['role'] === 'administrator'
 ) {
-    //$fullname = htmlspecialchars($_SESSION['fullname']);
     $username = htmlspecialchars($_SESSION['username']);
 } else {
     echo "<h1>Access Denied</h1>";
-    echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator to access this page.</p>";  
+    echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator to access this page.</p>";
     exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrator Dashboard</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
+            margin: 0;
         }
+
         .sidebar {
             width: 250px;
             height: 100vh;
             position: fixed;
             background-color: #343a40;
-            color: #fff;
+            color: white;
+            padding: 20px;
         }
+
         .sidebar .nav-link {
-            color: #fff;
+            color: white;
+            padding: 10px 15px;
+            display: block;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
         .main-content {
             margin-left: 250px;
             padding: 20px;
         }
-        .card-icon {
-            font-size: 1.5rem;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 10px;
-            background-color: #fff;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            white-space: nowrap;
-        }
-        .dropdown-content.show {
-            display: block;
-        }
+
         .profile-icon {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             cursor: pointer;
         }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 10px;
+            background-color: white;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
     </style>
 </head>
-<body>
-    <body class="sb-nav-fixed" style="display:none;" id="page-body">
-<div class="sidebar d-flex flex-column p-3">
-    <h4 class="text-white">ADMINISTRATOR</h4>
-    <hr class="text-white">
-    <ul class="nav nav-pills flex-column">
-        <li class="nav-item"><a href="#" class="nav-link active">Dashboard</a></li>
+<body id="page-body" style="display:none;">
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h4>ADMINISTRATOR</h4>
+    <hr>
+    <ul class="nav flex-column">
+        <li class="nav-item"><a href="../Module 1 - Login/admin_page.php" class="nav-link" onclick="showDashboard()">Dashboard</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Events</a></li>
         <li class="nav-item"><a href="../Module 1 - Login/view_student_registered.php" class="nav-link">View Student Registered</a></li>
         <li class="nav-item"><a href="../Module 1 - Login/view_event_advisor_registered.php" class="nav-link">View Event Advisor Registered</a></li>
     </ul>
 </div>
 
+<!-- Main Content -->
 <div class="main-content">
+
+    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3">Welcome, <?php echo $username; ?>!</h1>
         <div class="position-relative">
@@ -96,59 +108,43 @@ if (
         </div>
     </div>
 
+    <!-- Dashboard Cards -->
     <div class="row g-4">
         <div class="col-md-3">
             <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Total Registered Student</h5>
-                            <h3>5,421</h3>
-                        </div>
-                        
-                    </div>
+                    <h5>Total Registered Student</h5>
+                    <h3>5,421</h3>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card text-white bg-info">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Total Approved Members</h5>
-                            <h3>1,303</h3>
-                        </div>
-                        
-                    </div>
+                    <h5>Total Approved Members</h5>
+                    <h3>1,303</h3>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Total Events</h5>
-                            <h3>230</h3>
-                        </div>
-                    </div>
+                    <h5>Total Events</h5>
+                    <h3>230</h3>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card text-white bg-secondary">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Numbers of Event Advisor</h5>
-                            <h3>55</h3>
-                        </div>
-                    </div>
+                    <h5>Numbers of Event Advisor</h5>
+                    <h3>55</h3>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Notification -->
     <div class="mt-4">
         <h4>Notification</h4>
         <div class="card p-4">
@@ -158,38 +154,31 @@ if (
     </div>
 </div>
 
+<!-- JS -->
 <script>
 function toggleDropdown() {
     document.getElementById("dropdown-content").classList.toggle("show");
 }
 
-window.onclick = function(event) {
-    if (!event.target.matches('.profile-icon')) {
+window.onclick = function(e) {
+    if (!e.target.matches('.profile-icon')) {
         var dropdowns = document.getElementsByClassName("dropdown-content");
-        for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
+        for (let i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].classList.remove('show');
         }
     }
-}
-</script>
-<script>
-    // Prevent showing the dashboard on back button with invalid session
-    window.addEventListener('pageshow', function(event) {
-        if (event.persisted || performance.navigation.type === 2) {
-            // Immediately hide page and redirect
-            document.getElementById("page-body").style.display = "none";
-            sessionStorage.setItem("sessionExpired", "true");
-            window.location.href = "../Module 1 - Login/login.php";
-        }
-    });
+};
 
-    // Reveal the body only if session is valid
-    window.onload = function () {
-        document.getElementById("page-body").style.display = "block";
-    };
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted || performance.navigation.type === 2) {
+        document.getElementById("page-body").style.display = "none";
+        window.location.href = "../Module 1 - Login/login.php";
+    }
+});
+
+window.onload = function () {
+    document.getElementById("page-body").style.display = "block";
+};
 </script>
 
 </body>

@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
                " WHERE staff_id = '$staff_id'";
 
     if (mysqli_query($link, $update)) {
-        echo "<script>alert('Profile updated successfully'); window.location.href='view_event_advisors.php';</script>";
+        echo "<script>alert('Profile updated successfully'); window.location.href='../Module 1 - Login/view_event_advisor_registered.php';</script>";
         exit;
     } else {
         echo "Update failed: " . mysqli_error($link);
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
                 <input type="text" class="form-control" name="phone_num" value="<?= htmlspecialchars($advisor['phone_num']) ?>" required>
             </div>
 
-            <button type="submit" name="done" class="btn btn-primary">Update</button>
+            <button type="submit" name="done" class="btn btn-primary">Update Advisor</button>
             <a href="../Module 1 - Login/view_event_advisor_registered.php" class="btn btn-secondary">Cancel</a>
         </form>
     </div>

@@ -16,21 +16,82 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
     <title>View Student Registered</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f0f2f5; padding: 20px; }
-        h2 { text-align: center; margin-bottom: 30px; }
-        .btn-top { margin-bottom: 20px; display: flex; justify-content: space-between; }
-        table { background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        th { background-color: #343a40; color: #fff; text-align: center; }
-        td { vertical-align: middle; text-align: center; }
-        img.profile-pic {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 8px;
-            display: block;
-            margin: auto;
+    body {
+        background: linear-gradient(to right, #e0eafc, #cfdef3);
+        padding: 40px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .btn-top {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .btn {
+        border-radius: 25px;
+        font-weight: 500;
+        padding: 10px 20px;
+    }
+
+    .table-container {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        margin: 0 auto;
+    }
+
+    table th {
+        background-color: #4a90e2;
+        color: white;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    img.profile-pic {
+    width: 30%;
+    height: 30%;
+    object-fit: cover; /* Fill the box without distortion */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+    border: 3px solid #007bff;
+    border-radius: 5px; /* sharp corners */
+}
+
+
+    .btn-sm {
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+        .btn-top {
+            flex-direction: column;
+            align-items: center;
         }
-    </style>
+    }
+</style>
 </head>
 <body>
     <h2>Registered Students</h2>
@@ -39,8 +100,9 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
         <a href="../Module 1 - Login/admin_add_student.php" class="btn btn-success">+ Add New Student</a>
     </div>
 
-    <table class="table table-bordered table-hover">
-        <thead>
+    <div class="table-container">
+    <table class="table table-bordered table-hover align-middle text-center">
+        <thead class="table-primary">
             <tr>
                 <th>Profile Picture</th>
                 <th>Full Name</th>
@@ -51,26 +113,30 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
             </tr>
         </thead>
         <tbody>
-        <?php while ($row = mysqli_fetch_assoc($result)): ?>
-            <tr>
-                <td>
-                    <?php if (!empty($row['profile_picture'])): ?>
-                        <img src="<?= $row['profile_picture'] ?>" alt="Profile" class="profile-pic">
-                    <?php else: ?>
-                        <span>No Image</span>
-                    <?php endif; ?>
-                </td>
-                <td><?= htmlspecialchars($row['name']) ?></td>
-                <td><?= htmlspecialchars($row['student_matric']) ?></td>
-                <td><?= htmlspecialchars($row['email']) ?></td>
-                <td><?= htmlspecialchars($row['program']) ?></td>
-                <td>
-                    <a href="../Module 1 - Login/admin_edit_student.php?student_id=<?= $row['student_id'] ?>" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="../Module 1 - Login/admin_delete_student.php?student_id=<?= $row['student_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
-                </td>
-            </tr>
-        <?php endwhile; ?>
+            <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                <tr>
+                    <td>
+                        <?php if (!empty($row['profile_picture'])): ?>
+                            <img src="<?= $row['profile_picture'] ?>" alt="Profile" class="profile-pic">
+                        <?php else: ?>
+                            <span>No Image</span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= htmlspecialchars($row['name']) ?></td>
+                    <td><?= htmlspecialchars($row['student_matric']) ?></td>
+                    <td><?= htmlspecialchars($row['email']) ?></td>
+                    <td><?= htmlspecialchars($row['program']) ?></td>
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="../Module 1 - Login/admin_edit_student.php?student_id=<?= $row['student_id'] ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="../Module 1 - Login/admin_delete_student.php?student_id=<?= $row['student_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?');">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
         </tbody>
     </table>
+</div>
+
 </body>
 </html>

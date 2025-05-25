@@ -77,6 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             margin: 10px 0;
             border-radius: 6px;
         }
+
+        h2{
+            text-align:center;
+
+        }
     </style>
 </head>
 <body class="p-4">
