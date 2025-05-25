@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['Login']) || $_SESSION['Login'] !== "YES" || $_SESSION['role'] !== 'administrator') {
-    echo "<h1>Access Denied</h1><p>You must <a href='login.php'>login</a> as an administrator.</p>";
+    echo "<h1>Access Denied</h1><p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator.</p>";
     exit();
 }
 
@@ -35,5 +35,5 @@ mysqli_query($link, "DELETE FROM student WHERE student_id = '$student_id'");
 // Then delete from login table
 mysqli_query($link, "DELETE FROM login WHERE login_id = '$login_id'");
 
-echo "<script>alert('Student deleted successfully'); window.location.href='view_student_registered.php';</script>";
+echo "<script>alert('Student deleted successfully'); window.location.href='../Module 1 - Login/view_student_registered.php';</script>";
 exit();

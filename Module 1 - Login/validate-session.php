@@ -11,11 +11,7 @@ header("Expires: Fri, 01 Jan 1990 00:00:00 GMT");
 if (!isset($_SESSION['Login']) || $_SESSION['Login'] !== "YES") {
     session_unset();
     session_destroy();
-    header("Location: login.php");
+    header("Location: ../Module 1 - Login/login.php");
     exit();
-} else {
-    // Redirect to student dashboard
-    header("Location: student_page1.php");
-    exit();
-}
+} 
 ?>

@@ -32,7 +32,7 @@ if (
 
 } else {
     echo "<h1>Access Denied</h1>";
-    echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>";
+    echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as an event advisor to access this page.</p>";
     exit();
 }
 ?>
@@ -58,7 +58,7 @@ if (
         <img src="../Images/eventadvisor.png" alt="Profile" class="profile-icon" onclick="toggleDropdown()">
         <div id="dropdown-content" class="dropdown-content">
             <a href="../Module 2 - Event Registration/view_advisor_page.php">Setting Profile</a>
-            <a href="../Module 2 - Event Registration/logout_event_advisor.php">Logout</a>
+            <a href="../Module 1 - Login/logout.php">Logout</a>
         </div>
     </div>
 </header>
@@ -84,7 +84,7 @@ window.onclick = function(event) {
   <!-- Sidebar -->
   <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="DashboardPage.php">Dashboard</a>
+    <a href="../Module 2 - Event Registration/DashboardPage.php">Dashboard</a>
     <a href="EventRegistrationForm.php">Event Registration</a>
     <a href="CommitteRegistrationForm.php">Committee</a>
     <a href="MeritApplicationForm.php">Merit</a>

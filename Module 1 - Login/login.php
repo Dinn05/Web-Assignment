@@ -23,7 +23,7 @@ if (isset($_SESSION['error'])) {
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
 
-    <link rel="stylesheet" href="Style/login.css">
+    <link rel="stylesheet" href="../Module 1 - Login/Style/login.css">
 </head>
 <body>
     <div class="logo-container">

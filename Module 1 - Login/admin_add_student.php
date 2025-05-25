@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['Login']) || $_SESSION['Login'] !== "YES" || $_SESSION['role'] !== 'administrator') {
-    echo "<h1>Access Denied</h1><p>You must <a href='login.php'>login</a> as an administrator.</p>";
+    echo "<h1>Access Denied</h1><p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator.</p>";
     exit();
 }
 
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         $insert_student = "INSERT INTO student (login_id, name, student_matric, email, program, profile_picture) VALUES ('$login_id', '$name', '$matric', '$email', '$program', " . ($profile_picture ? "'$profile_picture'" : "NULL") . ")";
 
         if (mysqli_query($link, $insert_student)) {
-            echo "<script>alert('New student added successfully'); window.location.href='view_student_registered.php';</script>";
+            echo "<script>alert('New student added successfully'); window.location.href='../Module 1 - Login/view_student_registered.php';</script>";
             exit;
         } else {
             echo "Student creation failed: " . mysqli_error($link);
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             <input type="file" name="profile_picture" accept="image/*" class="form-control">
         </div>
         <button type="submit" name="register" class="btn btn-success">Add Student</button>
-        <a href="view_student_registered.php" class="btn btn-secondary">Cancel</a>
+        <a href="../Module 1 - Login/view_student_registered.php" class="btn btn-secondary">Cancel</a>
     </form>
 </body>
 </html>

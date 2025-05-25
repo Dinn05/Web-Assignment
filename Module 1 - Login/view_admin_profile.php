@@ -9,7 +9,7 @@ if (
     $_SESSION['role'] !== 'administrator'
 ) {
     echo "<h1>Access Denied</h1>";
-    echo "<p>You must <a href='login.php'>login</a> as an administrator to access this page.</p>";
+    echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator to access this page.</p>";
     exit();
 }
 
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
     if (mysqli_query($link, $update)) {
         echo "<script>
                 alert('Profile updated successfully');
-                window.location.href='view_admin_profile.php';
+                window.location.href='../Module 1 - Login/view_admin_profile.php';
               </script>";
         exit;
     } else {
@@ -268,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
         <div class="btn-group">
             <button type="button" class="btn-primary" id="update_button" onclick="enableEdit()">Update Profile</button>
             <button type="submit" name="done" class="btn-primary" id="done_button" style="display:none;">Done</button>
-            <a href="admin_page.php"><button type="button" class="btn-secondary">Back to Dashboard</button></a>
+            <a href="../Module 1 - Login/admin_page.php"><button type="button" class="btn-secondary">Back to Dashboard</button></a>
         </div>
     </form>
 </body>

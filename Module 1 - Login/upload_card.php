@@ -4,7 +4,7 @@ $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection 
 
 if (!isset($_POST['id']) || !isset($_FILES['fileToUpload'])) {
     $_SESSION['upload_msg'] = "❌ Invalid upload request.";
-    header("Location: register_petakom.php");
+    header("Location: ../Module 1 - Login/register_petakom.php");
     exit();
 }
 
@@ -47,6 +47,6 @@ if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     $_SESSION['upload_msg'] = "❌ Error uploading file.";
 }
 
-header("Location: register_petakom.php");
+header("Location: ../Module 1 - Login/register_petakom.php");
 exit();
 ?>

@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['Login']) || $_SESSION['Login'] !== "YES" || $_SESSION['role'] !== 'administrator') {
-    echo "<h1>Access Denied</h1><p>You must <a href='login.php'>login</a> as an administrator.</p>";
+    echo "<h1>Access Denied</h1><p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator.</p>";
     exit();
 }
 
@@ -96,7 +96,7 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
 <body>
     <h2>Registered Students</h2>
     <div class="btn-top">
-        <a href="admin_page.php" class="btn btn-secondary">Return to Dashboard</a>
+        <a href="../Module 1 - Login/admin_page.php" class="btn btn-secondary">Return to Dashboard</a>
         <a href="../Module 1 - Login/admin_add_student.php" class="btn btn-success">+ Add New Student</a>
     </div>
 

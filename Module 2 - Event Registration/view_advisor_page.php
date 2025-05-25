@@ -9,7 +9,7 @@ if (
     $_SESSION['role'] !== 'event_advisor'
 ) {
     echo "<h1>Access Denied</h1>";
-    echo "<p>You must <a href='login.php'>login</a> as an event advisor to access this page.</p>";
+    echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as an event advisor to access this page.</p>";
     exit();
 }
 
@@ -271,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
         <div class="btn-group">
             <button type="button" class="btn-primary" id="update_button" onclick="enableEdit()">Update Profile</button>
             <button type="submit" name="done" class="btn-primary" id="done_button" style="display:none;">Done</button>
-            <a href="DashboardPage.php"><button type="button" class="btn-secondary">Back to Dashboard</button></a>
+            <a href="../Module 2 - Event Registration/DashboardPage.php"><button type="button" class="btn-secondary">Back to Dashboard</button></a>
         </div>
     </form>
 </body>
