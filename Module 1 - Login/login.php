@@ -23,7 +23,7 @@ if (isset($_SESSION['error'])) {
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="expires" content="0">
 
-    <link rel="stylesheet" href="Style/login.css">
+    <link rel="stylesheet" href="../Module 1 - Login/Style/login.css">
 </head>
 <body>
     <div class="logo-container">
@@ -32,7 +32,7 @@ if (isset($_SESSION['error'])) {
     </div>
 
     <div class="login-wrapper">
-        <form class="login-box" action="check_login.php" method="POST">
+        <form class="login-box" action="../Module 1 - Login/check_login.php" method="POST">
             <h2>Login</h2>
 
             <div class="input-field">

@@ -38,11 +38,9 @@ if (
 
 } else {
     echo "<h1>Access Denied</h1>";
-    echo "<p>You must <a href='login.php'>login</a> as a student to access this page.</p>";
+    echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as a student to access this page.</p>";
 }
 ?>
-
-
 
 <!DOCTYPE html>
     <head>

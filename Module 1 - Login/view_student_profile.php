@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
     if (mysqli_query($link, $update)) {
         echo "<script>
                 alert('Profile updated successfully');
-                window.location.href='view_student_profile.php';
+                window.location.href='../Module 1 - Login/view_student_profile.php';
               </script>";
         exit;
     } else {
@@ -268,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
         <div class="btn-group">
             <button type="button" class="btn-primary" id="update_button" onclick="enableEdit()">Update Profile</button>
             <button type="submit" name="done" class="btn-primary" id="done_button" style="display:none;">Done</button>
-            <a href="student_page.php"><button type="button" class="btn-secondary">Back to Dashboard</button></a>
+            <a href="../Module 1 - Login/student_page.php"><button type="button" class="btn-secondary">Back to Dashboard</button></a>
         </div>
     </form>
 </body>

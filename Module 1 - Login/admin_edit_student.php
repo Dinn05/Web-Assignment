@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['Login']) || $_SESSION['Login'] !== "YES" || $_SESSION['role'] !== 'administrator') {
-    echo "<h1>Access Denied</h1><p>You must <a href='login.php'>login</a> as an administrator.</p>";
+    echo "<h1>Access Denied</h1><p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator.</p>";
     exit();
 }
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
               ($profile_picture ? "'$profile_picture'" : "NULL") . " WHERE student_id = '$student_id'";
 
     if (mysqli_query($link, $update)) {
-        echo "<script>alert('Student updated successfully'); window.location.href='view_student_registered.php';</script>";
+        echo "<script>alert('Student updated successfully'); window.location.href='../Module 1 - Login/view_student_registered.php';</script>";
         exit;
     } else {
         echo "Error updating: " . mysqli_error($link);
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             <input type="file" name="profile_picture" class="form-control" accept="image/*">
         </div>
         <button type="submit" name="update" class="btn btn-primary">Update Student</button>
-        <a href="view_student_registered.php" class="btn btn-secondary">Cancel</a>
+        <a href="../Module 1 - Login/view_student_registered.php" class="btn btn-secondary">Cancel</a>
     </form>
     </div>
 </body>

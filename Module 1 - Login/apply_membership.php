@@ -5,7 +5,7 @@ $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection 
 // ✅ Ensure student_id is provided
 if (!isset($_POST['student_id'])) {
     $_SESSION['upload_msg'] = "❌ Invalid request: student ID missing.";
-    header("Location: register_petakom.php");
+    header("Location: ../Module 1 - Login/register_petakom.php");
     exit();
 }
 

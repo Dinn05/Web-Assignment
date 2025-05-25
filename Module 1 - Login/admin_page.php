@@ -25,59 +25,7 @@ if (
     <meta charset="UTF-8">
     <title>Administrator Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            margin: 0;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            background-color: #343a40;
-            color: white;
-            padding: 20px;
-        }
-
-        .sidebar .nav-link {
-            color: white;
-            padding: 10px 15px;
-            display: block;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 10px;
-            background-color: white;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content.show {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="../Module 1 - Login/Style/admin_page.css">
 </head>
 <body id="page-body" style="display:none;">
 
@@ -103,7 +51,7 @@ if (
             <img src="../Images/eventadvisor.png" class="profile-icon" onclick="toggleDropdown()">
             <div id="dropdown-content" class="dropdown-content p-3">
                 <a class="d-block" href="../Module 1 - Login/view_admin_profile.php">Setting Profile</a>
-                <a href="logout.php" class="d-block text-danger">Logout</a>
+                <a href="../Module 1 - Login/logout.php" class="d-block text-danger">Logout</a>
             </div>
         </div>
     </div>
@@ -179,6 +127,22 @@ window.addEventListener('pageshow', function(event) {
 window.onload = function () {
     document.getElementById("page-body").style.display = "block";
 };
+
+    // Prevent showing the dashboard on back button with invalid session
+        window.addEventListener('pageshow', function(event) {
+        if (event.persisted || performance.navigation.type === 2) {
+            // Immediately hide page and redirect
+            document.getElementById("page-body").style.display = "none";
+            sessionStorage.setItem("sessionExpired", "true");
+            window.location.href = "../Module 1 - Login/login.php";
+        }
+        });
+
+    // Reveal the body only if session is valid
+        window.onload = function () {
+        document.getElementById("page-body").style.display = "block";
+        };
+        
 </script>
 
 </body>
