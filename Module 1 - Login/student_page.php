@@ -154,9 +154,11 @@ if (
             background:rgb(207, 207, 207);
             text-align: center;
             padding: 20px 0;
-            margin-top: 50px;
+            margin-top: 30%;
             border-top: 1px solid #ddd;
         }
+
+        
     </style>
 </head>
 <body>

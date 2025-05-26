@@ -150,7 +150,7 @@ if (
             background: #cce4ff;
             font-size: 14px;
             border-top: 1px solid #bbb;
-            margin-top: 40px;
+            margin-top: 30%;
         }
     </style>
 </head>
