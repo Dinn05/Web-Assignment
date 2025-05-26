@@ -213,3 +213,18 @@
 .show {
     display: block;
 }
+
+/*---------------------*/
+  .button-group button {
+    background-color: grey;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .button-group .active-button {
+    background-color: green !important;
+  }
