@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
                " WHERE staff_id = '$staff_id'";
 
     if (mysqli_query($link, $update)) {
-        echo "<script>alert('Profile updated successfully'); window.location.href='../Module 1 - Login/view_event_advisor_registered.php';</script>";
+        echo "<script>alert('Advisor Info updated successfully'); window.location.href='../Module 1 - Login/view_event_advisor_registered.php';</script>";
         exit;
     } else {
         echo "Update failed: " . mysqli_error($link);

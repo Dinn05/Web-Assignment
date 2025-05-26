@@ -13,7 +13,7 @@ if (!isset($_GET['student_id'])) {
 $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed: " . mysqli_connect_error());
 $student_id = intval($_GET['student_id']);
 
-// Get login_id to delete from login table after deleting from student
+// Get login_id and profile_picture
 $getLoginIdQuery = "SELECT login_id, profile_picture FROM student WHERE student_id = '$student_id'";
 $getLoginResult = mysqli_query($link, $getLoginIdQuery);
 $loginData = mysqli_fetch_assoc($getLoginResult);
@@ -24,15 +24,18 @@ if (!$login_id) {
     die("Invalid student ID or login record missing.");
 }
 
+// Delete related membership records first
+mysqli_query($link, "DELETE FROM membership WHERE student_id = '$student_id'");
+
 // Delete profile picture if exists
 if (!empty($profile_picture) && file_exists($profile_picture)) {
     unlink($profile_picture);
 }
 
-// Delete student record first
+// Delete student record
 mysqli_query($link, "DELETE FROM student WHERE student_id = '$student_id'");
 
-// Then delete from login table
+// Delete from login table
 mysqli_query($link, "DELETE FROM login WHERE login_id = '$login_id'");
 
 echo "<script>alert('Student deleted successfully'); window.location.href='../Module 1 - Login/view_student_registered.php';</script>";

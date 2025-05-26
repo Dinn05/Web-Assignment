@@ -44,18 +44,20 @@ $result = mysqli_query($link, "SELECT * FROM staff INNER JOIN login ON staff.log
     }
 
     .table-container {
-        background: #fff;
+        background: #ffffff;
         padding: 30px;
-        border-radius: 20px;
+        border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
-    table th {
-        background-color: #cfe2ff;
-        color: #000;
-        font-weight: bold;
-        text-align: center;
+    table th { 
+        background-color: #cfe2ff; 
+        color: #000; 
+        font-weight: bold; 
+        text-align: center; 
+        white-space: nowrap; 
     }
+
 
     table td {
         text-align: center;
