@@ -1,34 +1,60 @@
 <?php
-include 'check_committe.php';
+session_start();
 
+$conn = new mysqli("localhost", "root", "", "mypetakom");
+
+if ($conn->connect_error) {
+    die("Connection Failed: " . $conn->connect_error);
+}
+
+// Fetch events for dropdown
 $event_result = $conn->query("SELECT event_id, title FROM EVENT");
-$student_result = $conn->query("SELECT login_id, student_id FROM STUDENT");
 
-// Proses borang
+// Fetch students for dropdown - make sure to select student_id and name
+$student_result = $conn->query("SELECT student_id, name FROM STUDENT");
+
+// Process form submission
 if (isset($_POST['submit'])) {
     $event_id = $_POST['event_id'];
     $student_id = $_POST['student_id'];
     $role = $_POST['role'];
 
-    // Semak jika sudah berdaftar
+    // Check if student already registered for this event committee
     $check = $conn->prepare("SELECT * FROM COMMITTEE WHERE event_id = ? AND student_id = ?");
     $check->bind_param("ii", $event_id, $student_id);
     $check->execute();
     $result = $check->get_result();
 
     if ($result->num_rows > 0) {
-        $message = "<p style='color:red;'>❌ Pelajar ini sudah didaftarkan sebagai jawatankuasa untuk aktiviti ini.</p>";
+        $_SESSION['error_message'] = "❌ Pelajar ini sudah didaftarkan.";
     } else {
-        // Masukkan ke dalam COMMITTEE
+        // Insert new committee member
         $stmt = $conn->prepare("INSERT INTO COMMITTEE (event_id, student_id, position) VALUES (?, ?, ?)");
         $stmt->bind_param("iis", $event_id, $student_id, $role);
 
         if ($stmt->execute()) {
-            $message = "<p style='color:green;'>✅ Jawatankuasa berjaya didaftarkan!</p>";
+            $_SESSION['success_message'] = "✅ Jawatankuasa berjaya didaftarkan!";
+            header("Location: CommitteRegistrationForm.php");
+            exit();
         } else {
-            $message = "<p style='color:red;'>❌ Ralat: " . $stmt->error . "</p>";
+            $_SESSION['error_message'] = "❌ Ralat: " . $stmt->error;
         }
     }
+
+    // Redirect back to form to prevent resubmission
+    header("Location: CommitteRegistrationForm.php");
+    exit();
+}
+
+// Show messages
+if (isset($_SESSION['success_message'])) {
+    $message = "<p style='color:green;'>" . $_SESSION['success_message'] . "</p>";
+    unset($_SESSION['success_message']);
+} elseif (isset($_SESSION['error_message'])) {
+    $message = "<p style='color:red;'>" . $_SESSION['error_message'] . "</p>";
+    unset($_SESSION['error_message']);
+} else {
+    $message = "";
 }
 ?>
 
@@ -67,7 +93,6 @@ if (isset($_POST['submit'])) {
     <a href="MeritApplicationForm.php">Merit</a>
     <a href="QRCodeEventPage.php">QR Code</a>
   </div>
-
   <button class="openbtn" onclick="openNav()">☰ Menu</button>
   
   <div class="container">
@@ -78,27 +103,33 @@ if (isset($_POST['submit'])) {
     </div>
     <form action="check_committe.php" method="POST">
 
-      <label for="event_id">Event:</label>
+    <label for="event_id">Event:</label>
+    <select name="event_id" id="event_id" required>
+        <option value="" disabled selected>Sila pilih acara</option>
+        <?php while ($event = $event_result->fetch_assoc()): ?>
+            <option value="<?= $event['event_id'] ?>">
+                <?= htmlspecialchars($event['title']) ?>
+            </option>
+        <?php endwhile; ?>
+    </select>
+    <br><br>
 
-      <select name="event_id" onchange="check_committe()" required>
-        <option value="">--Pilih Aktiviti--</option>
-          <?php while ($row = $event_result->fetch_assoc()): ?>
-            <option value="<?= $row['event_id'] ?>"><?= $row['title'] ?></option>
-          <?php endwhile; ?>
-      </select><br><br>
+    <label for="student_id">Student:</label>
+    <select name="student_id" id="student_id" required>
+        <option value="" disabled selected>Sila pilih pelajar</option>
+        <?php while ($student = $student_result->fetch_assoc()): ?>
+            <option value="<?= $student['student_id'] ?>">
+                <?= htmlspecialchars($student['name']) ?>
+            </option>
+        <?php endwhile; ?>
+    </select>
+    <br><br>
 
-  <label for="student_id">Student:</label>
-  <select name="student_id" onchange="checkCommittee()" required>
-    <option value="">--Pilih Pelajar--</option>
-    <?php while ($row = $student_result->fetch_assoc()): ?>
-      <option value="<?= $row['login_id'] ?>"><?= $row['student_id'] ?></option>
-    <?php endwhile; ?>
-  </select><br><br>
+    <label for="role">Role:</label>
+    <input type="text" name="role" id="role" required>
+    <br><br>
 
-  <label for="role">Role in Committee:</label>
-  <input type="text" name="role" required><br><br>
-
-  <button type="submit" name="submit">Assign Committee Member</button>
+    <button type="submit" name="submit">Daftar</button>
 </form>
 
   </div>
