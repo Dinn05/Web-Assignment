@@ -172,7 +172,7 @@ if (
 <div class="main-content" id="mainContent">
     <div class="dashboard-topbar">
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-        <h5>MyPetakom Administrator Dashboard</h5>
+        <h5>Administrator Dashboard</h5>
         <div class="position-relative">
             <img src="../Images/eventadvisor.png" class="profile-icon" onclick="toggleDropdown()" alt="profile">
             <div id="dropdown-content" class="dropdown-content p-3">

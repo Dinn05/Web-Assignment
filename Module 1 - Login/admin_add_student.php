@@ -13,25 +13,25 @@ $existingMatricNumbers = [];
 
 $usersResult = mysqli_query($link, "SELECT username FROM login");
 while ($row = mysqli_fetch_assoc($usersResult)) {
-    $existingUsernames[] = strtolower(htmlspecialchars($row['username']));
+    $existingUsernames[] = strtoupper(htmlspecialchars($row['username']));
 }
 
 $matricResult = mysqli_query($link, "SELECT student_matric FROM student");
 while ($row = mysqli_fetch_assoc($matricResult)) {
-    $existingMatricNumbers[] = strtolower(htmlspecialchars($row['student_matric']));
+    $existingMatricNumbers[] = strtoupper(htmlspecialchars($row['student_matric']));
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-    $username = htmlspecialchars(strtolower(trim($_POST['username'])));
+    $username = htmlspecialchars(strtoupper(trim($_POST['username'])));
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $name = mysqli_real_escape_string($link, $_POST['name']);
-    $matric = htmlspecialchars(strtolower(trim($_POST['student_matric'])));
+    $matric = htmlspecialchars(strtoupper(trim($_POST['student_matric'])));
     $email = mysqli_real_escape_string($link, $_POST['email']);
     $program = mysqli_real_escape_string($link, $_POST['program']);
 
     // Check for duplicate username or matric
     $checkUser = mysqli_query($link, "SELECT * FROM login WHERE LOWER(username) = '$username'");
-    $checkMatric = mysqli_query($link, "SELECT * FROM student WHERE LOWER(student_matric) = '$matric'");
+    $checkMatric = mysqli_query($link, "SELECT * FROM student WHERE UPPER(student_matric) = '$matric'");
 
     if (mysqli_num_rows($checkUser) > 0) {
         echo "<script>alert('Username already exists!'); window.history.back();</script>";
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         const existingUsernames = <?= json_encode($existingUsernames) ?>;
         const existingMatricNumbers = <?= json_encode($existingMatricNumbers) ?>;
 
-        function validateUsername(input) {
+        /*function validateUsername(input) {
             const feedback = document.getElementById("usernameFeedback");
             if (existingUsernames.includes(input.value.trim().toLowerCase())) {
                 feedback.innerText = "❌ Username already exists.";
@@ -101,18 +101,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                 feedback.innerText = "✔ Username is available.";
                 feedback.style.color = "green";
             }
-        }
+        }*/
 
-        function validateMatric(input) {
+        /*function validateMatric(input) {
             const feedback = document.getElementById("matricFeedback");
-            if (existingMatricNumbers.includes(input.value.trim().toLowerCase())) {
+            if (existingMatricNumbers.includes(input.value.trim().toUpperCasee())) {
                 feedback.innerText = "❌ Matric number already exists.";
                 feedback.style.color = "red";
             } else {
                 feedback.innerText = "✔ Matric number is available.";
                 feedback.style.color = "green";
             }
-        }
+        }*/
     </script>
 </head>
 <body class="p-4">

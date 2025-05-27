@@ -67,8 +67,8 @@ $result = mysqli_query($link, "SELECT * FROM student INNER JOIN login ON student
     }
 
     img.profile-pic {
-    width: 30%;
-    height: 30%;
+    width: 20%;
+    height: 20%;
     object-fit: cover; /* Fill the box without distortion */
     display: block;
     margin-left: auto;

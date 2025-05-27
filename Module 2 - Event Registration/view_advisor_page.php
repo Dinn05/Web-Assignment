@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// ✅ Strict session validation for event advisor
+// Strict session validation for event advisor
 if (
     !isset($_SESSION['Login']) ||
     $_SESSION['Login'] !== "YES" ||
@@ -13,18 +13,18 @@ if (
     exit();
 }
 
-// ✅ Connect to database
+// Connect to database
 $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("DB connection failed");
 
-// ✅ Get staff_id from session
+// Get staff_id from session
 $staff_id = $_SESSION['staff_id'];
 
-// ✅ Fetch advisor data
+// Fetch advisor data
 $query = "SELECT * FROM staff WHERE staff_id = '$staff_id'";
 $result = mysqli_query($link, $query);
 $advisor = mysqli_fetch_assoc($result);
 
-// ✅ Handle update logic
+// Handle update logic
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
     $fullname = mysqli_real_escape_string($link, $_POST['fullname']);
     $email = mysqli_real_escape_string($link, $_POST['email']);
@@ -269,7 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
         <input type="text" name="phone_num" value="<?= $advisor['phone_num'] ?>" disabled required>
 
         <div class="btn-group">
-            <button type="button" class="btn-primary" id="update_button" onclick="enableEdit()">Update Profile</button>
+            <!--<button type="button" class="btn-primary" id="update_button" onclick="enableEdit()">Update Profile</button>-->
             <button type="submit" name="done" class="btn-primary" id="done_button" style="display:none;">Done</button>
             <a href="../Module 2 - Event Registration/DashboardPage.php"><button type="button" class="btn-secondary">Back to Dashboard</button></a>
         </div>

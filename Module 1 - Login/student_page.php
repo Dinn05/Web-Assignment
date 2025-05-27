@@ -182,7 +182,7 @@ if (
 <div class="main-content" id="mainContent">
     <div class="topbar">
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button> <!-- inside sidebar -->
-        <div><strong>MyPetakom Student Dashboard</strong></div>
+        <div><strong>Student Dashboard</strong></div>
         <div class="user-info">
             <span>Welcome, <?php echo ucfirst($username); ?>!</span>
             <a href="../Module 1 - Login/logout.php" class="btn btn-outline-primary btn-sm">Logout</a>

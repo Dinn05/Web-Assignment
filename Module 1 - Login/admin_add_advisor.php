@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     <script>
         const existingUsernames = <?= json_encode($existingUsernames) ?>;
 
-        function validateUsername(input) {
+        /*function validateUsername(input) {
             const feedback = document.getElementById("usernameFeedback");
             if (existingUsernames.includes(input.value.trim().toLowerCase())) {
                 feedback.innerText = "❌ Username already exists.";
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                 feedback.innerText = "✔ Username is available.";
                 feedback.style.color = "green";
             }
-        }
+        }*/
     </script>
 </head>
 <body class="p-4">
