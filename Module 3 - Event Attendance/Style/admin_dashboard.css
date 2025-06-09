@@ -21,7 +21,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: ;
 }
 
 .logo-container {
@@ -257,3 +256,5 @@ h1 {
 .export-section button:hover {
     background-color: #0d47a1;
 }
+
+

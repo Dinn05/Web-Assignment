@@ -24,135 +24,9 @@ if (
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: #f5f7fb;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 250px;
-            background: #cce4ff;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-            transition: width 0.3s ease;
-            overflow: hidden;
-            z-index: 1000;
-        }
-
-        .sidebar.collapsed {
-            width: 70px;
-        }
-
-        .sidebar img {
-            height: 100px;
-            margin: 10px auto;
-            display: block;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding-left: 0;
-            width: 100%;
-        }
-
-        .sidebar ul li {
-            padding: 15px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #333;
-            transition: background 0.2s;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #b3d7ff;
-        }
-
-        .sidebar ul li i {
-            width: 20px;
-            text-align: center;
-        }
-
-        .sidebar ul li span {
-            transition: opacity 0.3s ease;
-        }
-
-        .sidebar.collapsed ul li span {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .main-content {
-            margin-left: 250px;
-            transition: margin-left 0.3s ease;
-            padding: 30px;
-        }
-
-        .main-content.collapsed {
-            margin-left: 70px;
-        }
-
-        .dashboard-topbar {
-            background: white;
-            padding: 12px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .dashboard-topbar h5 {
-            margin: 0;
-            flex-grow: 1;
-            text-align: center;
-        }
-
-        .toggle-btn {
-            font-size: 20px;
-            background: #f0f0f0;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: white;
-            border: 1px solid #ddd;
-            min-width: 160px;
-            z-index: 1001;
-        }
-
-        .dropdown-content.show {
-            display: block;
-        }
-
-        footer {
-            text-align: center;
-            padding: 15px 0;
-            background: #cce4ff;
-            font-size: 14px;
-            border-top: 1px solid #bbb;
-            margin-top: 30%;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../Module 3 - Event Attendance/Style/admin_dashboard.css">
+    <link rel="stylesheet" href="../Module 1 - Login/Style/admin_page.css">
 </head>
 <body>
 
@@ -163,6 +37,7 @@ if (
         <li onclick="location.href='../Module 1 - Login/admin_page.php'"><i class="fas fa-home"></i><span> Dashboard</span></li>
         <li onclick="location.href='#'"><i class="fas fa-calendar-alt"></i><span> Events</span></li>
         <li onclick="location.href='../Module 1 - Login/view_student_registered.php'"><i class="fas fa-users"></i><span> Student List</span></li>
+        <li onclick="location.href='../Module 1 - Login/view_applied_membership.php'"><i class="fa fa-book"></i><span> Verify Student Membership</span></li>
         <li onclick="location.href='../Module 1 - Login/view_event_advisor_registered.php'"><i class="fas fa-chalkboard-teacher"></i><span> Advisor List</span></li>
         <li onclick="location.href='../Module 1 - Login/logout.php'"><i class="fas fa-sign-out-alt"></i><span> Logout</span></li>
     </ul>
@@ -184,40 +59,117 @@ if (
     <br>
     <h2>Welcome, <?php echo ucfirst($username); ?>!</h2>
 
-    <div class="row g-4 mt-3">
-        <div class="col-md-3">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <h5>Total Registered Student</h5>
-                    <h3>5,421</h3>
-                </div>
+    <div class="dashboard-container">
+        <h1>📊 PETAKOM Attendance Dashboard</h1>
+
+        <!-- A. Overview Cards -->
+        <div class="overview-cards">
+            <div class="card">
+                <h2>Total Events</h2>
+                <p>12</p>
+            </div>
+            <div class="card">
+                <h2>Total Attendance Slots</h2>
+                <p>325</p>
+            </div>
+            <div class="card">
+                <h2>Total Student Check-ins</h2>
+                <p>278</p>
+            </div>
+            <div class="card">
+                <h2>Top Event</h2>
+                <p>Career Fair 2025</p>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-info">
-                <div class="card-body">
-                    <h5>Total Approved Members</h5>
-                    <h3>1,303</h3>
-                </div>
+
+        <!-- B. Charts -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <h3>📊 Event vs Number of Attendees</h3>
+                <canvas id="barChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>🟢 Attendance by Category</h3>
+                <canvas id="pieChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h3>📈 Attendance Trends</h3>
+                <canvas id="lineChart"></canvas>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5>Total Events</h5>
-                    <h3>230</h3>
-                </div>
-            </div>
+
+        <!-- C. Filters -->
+        <div class="filters-section">
+            <h3>🔍 Filter Records</h3>
+            <form>
+                <label for="date-range">Date Range:</label>
+                <input type="date" id="start-date">
+                <input type="date" id="end-date">
+
+                <label for="event">Event:</label>
+                <input type="text" id="event" placeholder="Event name">
+
+                <label for="student">Student ID:</label>
+                <input type="text" id="student" placeholder="Student ID">
+
+                <button type="submit">Apply Filter</button>
+            </form>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-secondary">
-                <div class="card-body">
-                    <h5>Number of Event Advisors</h5>
-                    <h3>55</h3>
-                </div>
-            </div>
+
+        <!-- D. Export -->
+        <div class="export-section">
+            <h3>📁 Export Report</h3>
+            <button>Download CSV</button>
+            <button>Download PDF</button>
         </div>
     </div>
+
+    <!-- Dummy Chart.js Script -->
+    <script>
+        const ctx1 = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Career Fair', 'Tech Talk', 'Hackathon', 'Workshop'],
+                datasets: [{
+                    label: 'No. of Attendees',
+                    data: [120, 85, 70, 50],
+                    backgroundColor: '#4caf50'
+                }]
+            }
+        });
+
+        const ctx2 = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Career', 'Academic', 'Technical', 'Social'],
+                datasets: [{
+                    label: 'Attendance %',
+                    data: [35, 25, 20, 20],
+                    backgroundColor: ['#2196f3', '#ff9800', '#4caf50', '#e91e63']
+                }]
+            }
+        });
+
+        const ctx3 = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                datasets: [{
+                    label: 'Attendance Over Time',
+                    data: [20, 40, 60, 80, 70],
+                    backgroundColor: '#4caf50',
+                    borderColor: '#4caf50',
+                    fill: false,
+                    tension: 0.3
+                }]
+            }
+        });
+    </script>
 
     <footer>
         &copy; 2025 MyPetakom Portal<br>
