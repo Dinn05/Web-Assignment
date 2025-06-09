@@ -1,18 +1,24 @@
 <?php
 session_start();
+
+//Connect to Database
 $conn = new mysqli("localhost", "root", "", "mypetakom");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+//Get username from user, default is Guest
 $username = $_SESSION['username'] ?? 'Guest';
 
 if (!isset($_GET['event_id'])) {
     die("No event ID provided.");
 }
 
+//Check event_id from database
 $event_id = intval($_GET['event_id']);
 $stmt = $conn->prepare("SELECT title, description, event_date FROM event WHERE event_id = ?");
+
+//Retrieves semua data ni untuk display
 $stmt->bind_param("i", $event_id);
 $stmt->execute();
 $stmt->bind_result($title, $description, $event_date);

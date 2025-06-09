@@ -132,7 +132,7 @@ INSERT INTO `membership` (`membership_id`, `student_id`, `student_card`, `status
 --
 
 CREATE TABLE `merit` (
-  `merit_id` int(11) NOT NULL,
+  `merit_id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   `role` varchar(100) DEFAULT NULL,
