@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['done'])) {
         <input type="text" name="program" value="<?= $student['program'] ?>" disabled required>
 
         <div class="btn-group">
-            <!--<button type="button" class="btn-primary" id="update_button" onclick="enableEdit()">Update Profile</button>-->
+            <button type="button" class="btn-primary" id="update_button" onclick="enableEdit()">Update Profile</button>
             <button type="submit" name="done" class="btn-primary" id="done_button" style="display:none;">Done</button>
             <a href="../Module 1 - Login/student_page.php"><button type="button" class="btn-secondary">Back to Dashboard</button></a>
         </div>
