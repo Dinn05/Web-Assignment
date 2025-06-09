@@ -1,0 +1,234 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+.navbar {
+    background-color: #000;
+    color: white;
+    padding: 40px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: ;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 320px;
+}
+
+.logo-img {
+    width: 90px;
+    height: auto;
+}
+
+.logo-text {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #fff;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 10px;
+    border-radius: 5px;
+    top: 45px;
+}
+
+.dropdown-content a {
+    text-decoration: none;
+    display: block;
+    padding: 8px;
+    color: #333;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-content p {
+    margin: 0;
+    font-weight: bold;
+    padding: 5px 8px 8px 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.show {
+    display: block;
+}
+
+/* Side Navigation */
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    background-color: #575757;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 36px;
+    color: white;
+}
+
+/* Menu Button */
+.openbtn {
+    font-size: 15px;
+    cursor: pointer;
+    padding: 15px;
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    margin: 10px;
+    border-radius: 5px;
+    position: 0;
+    z-index: 1001;
+    top: 190px;
+    left: 10px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    background: #ffffff;
+    padding: 30px;
+    margin: 50px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.event-details {
+    background: #f9f9f9;
+    border-left: 5px solid #4caf50;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.event-details h2 {
+    margin-top: 0;
+}
+
+#map-placeholder {
+    background-color: #e0e0e0;
+    height: 150px;
+    border-radius: 8px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-style: italic;
+}
+
+.checkin-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkin-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.checkin-form input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.checkin-form button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.checkin-form button:hover {
+    background-color: #45a049;
+}
+
+.status-message {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.status-message .success {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.status-message .error {
+    color: #f44336;
+    font-weight: bold;
+}

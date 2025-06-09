@@ -45,7 +45,7 @@ if (isset($_SESSION['success_message'])) {
     <button class="openbtn" onclick="openNav()">☰ Menu</button>
   <div class="container">
     
-    <div class="main">
+    <div class="container">
 
       <h1 style="text-align: center">Event Registration Form</h1>
        
@@ -55,32 +55,34 @@ if (isset($_SESSION['success_message'])) {
           </div>
         <?php endif; ?>
 
-      <form action="check_event.php" method="POST" enctype="multipart/form-data">
-        
-        <label>Event Name:</label>
-        <input type="text" name="title" placeholder="Enter event name" >
+      
 
-        <label>Description:</label>
-        <input type="text" name="description" placeholder="Enter Description">
+       <form action="check_event.php" method="post" enctype="multipart/form-data">
         
-        <label>Location:</label>
-        <input type="text" name="location" placeholder="Enter location">
+        <label for="title">Event Title:</label>
+        <input type="text" id="title" name="title" required>
+        
+
+        <label for="description">Event Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="event_date">Event Date:</label>
+        <input type="date" id="event_date" name="event_date" required>
+
+        <label for="approval_letter">Approval Letter (PDF):</label>
+        <input type="file" id="approval_letter" name="approval_letter" accept="application/pdf" required>
+
+        <label for="event_advisor_id">Event Advisor ID:</label>
+        <input type="text" id="event_advisor_id" name="event_advisor_id" required>
+
        
-        <label>Date:</label>
-        <input type="date" name="event_date">
-
-        <label>Status:</label>
-          <select name="status" required>
-            <option value="active">Active</option>
-            <option value="postponed">Pending</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-
-        <label>Approval Letter:</label>
-        <input type="file" name="approval_letter" accept=".pdf,.jpg,.jpeg,.png" required>
-
-        <button type="submit" name="submit" class="edit-btn">Submit</button>
-      </form>
+        <button type="submit" name="submit" value="Register Event">Register</button>
+        
+    </div>
+    </form>
     </div>
   </div>
 </div>

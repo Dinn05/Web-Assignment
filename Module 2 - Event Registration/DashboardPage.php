@@ -38,7 +38,7 @@ if (
 
 // Determine filter type
 $filter = $_GET['filter'] ?? 'all';
-$today = date('d-m-Y');
+$today = date('Y-m-d');
 
 switch ($filter) {
     case 'upcoming':
