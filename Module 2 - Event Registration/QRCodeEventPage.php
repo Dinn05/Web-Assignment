@@ -91,11 +91,19 @@ $result = $conn->query($sql);
         <h3><?php echo $title; ?></h3>
         <p><strong>Date:</strong> <?php echo $event_date; ?></p>
         <p><?php echo $description; ?></p>
+
         <div style="margin-top: 10px;">
           <a href="edit_event.php?event_id=<?php echo $event_id; ?>"
              style="display: inline-block; padding: 10px 20px; background-color: grey; color: white; text-decoration: none; border-radius: 5px; margin-right: 10px;">
-             Edit
+             Edit Event
           </a>
+
+          <a href="edit_committe.php?event_id=<?php echo $event_id; ?>"
+   style="display: inline-block; padding: 10px 20px; background-color: green; color: white; text-decoration: none; border-radius: 5px;">
+   Edit Committee
+</a>
+
+
     <!------------------------------------------->
           <a href="delete_event.php?event_id=<?php echo $event_id; ?>" 
    onclick="return confirmDelete();" 
