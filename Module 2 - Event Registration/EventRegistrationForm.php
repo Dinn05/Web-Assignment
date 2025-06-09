@@ -60,23 +60,23 @@ if (isset($_SESSION['success_message'])) {
        <form action="check_event.php" method="post" enctype="multipart/form-data">
         
         <label for="title">Event Title:</label>
-        <input type="text" id="title" name="title" required><br>
+        <input type="text" id="title" name="title" required>
         
 
         <label for="description">Event Description:</label>
-        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea>
 
         <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required><br>
+        <input type="text" id="location" name="location" required>
 
         <label for="event_date">Event Date:</label>
-        <input type="date" id="event_date" name="event_date" required><br>
+        <input type="date" id="event_date" name="event_date" required>
 
         <label for="approval_letter">Approval Letter (PDF):</label>
-        <input type="file" id="approval_letter" name="approval_letter" accept="application/pdf" required><br>
+        <input type="file" id="approval_letter" name="approval_letter" accept="application/pdf" required>
 
         <label for="event_advisor_id">Event Advisor ID:</label>
-        <input type="text" id="event_advisor_id" name="event_advisor_id" required><br>
+        <input type="text" id="event_advisor_id" name="event_advisor_id" required>
 
        
         <button type="submit" name="submit" value="Register Event">Register</button>
