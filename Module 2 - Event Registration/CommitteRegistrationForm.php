@@ -56,6 +56,14 @@ if (isset($_SESSION['success_message'])) {
 } else {
     $message = "";
 }
+
+if (isset($_GET['message'])) {
+    if ($_GET['message'] === 'updated') {
+        echo "<p style='color:green;'>Committee member updated successfully.</p>";
+    } elseif ($_GET['message'] === 'deleted') {
+        echo "<p style='color:red;'>Committee member deleted successfully.</p>";
+    }
+}
 ?>
 
 
