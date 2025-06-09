@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     $description = $_POST['description'];
     $location = $_POST['location'];
     $event_date = $_POST['event_date'];
-    $status = $_POST['status'];
+    //$status = $_POST['status'];
     $event_advisor_id=$_POST['event_advisor_id'];
 
     // Fail surat kelulusan
