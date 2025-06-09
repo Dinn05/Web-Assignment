@@ -265,3 +265,12 @@ button:focus {
       margin: 10px;
       border-radius: 5px;
     }
+    form input[type="text"],
+form input[type="date"],
+form input[type="file"],
+form textarea,
+form button {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
