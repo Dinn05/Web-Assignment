@@ -15,6 +15,20 @@ if (
     echo "<p>You must <a href='../Module 1 - Login/login.php'>login</a> as an administrator to access this page.</p>";
     exit();
 }
+
+// Connect to DB
+$link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed");
+
+// Count approved and rejected statuses
+$status_result = mysqli_query($link, "
+    SELECT 
+        SUM(CASE WHEN status = 'Approved' THEN 1 ELSE 0 END) AS approved_count,
+        SUM(CASE WHEN status = 'Rejected' THEN 1 ELSE 0 END) AS rejected_count
+    FROM membership
+");
+$status_counts = mysqli_fetch_assoc($status_result);
+$approved_count = $status_counts['approved_count'] ?? 0;
+$rejected_count = $status_counts['rejected_count'] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,7 +104,7 @@ if (
             </div>
 
             <div class="chart-card">
-                <h3>🟢 Attendance by Category</h3>
+                <h3>🟢 Membership Approval Status</h3>
                 <canvas id="pieChart"></canvas>
             </div>
 
@@ -126,7 +140,7 @@ if (
         </div>
     </div>
 
-    <!-- Dummy Chart.js Script -->
+    <!-- Chart.js Script -->
     <script>
         const ctx1 = document.getElementById('barChart').getContext('2d');
         const barChart = new Chart(ctx1, {
@@ -145,12 +159,19 @@ if (
         const pieChart = new Chart(ctx2, {
             type: 'pie',
             data: {
-                labels: ['Career', 'Academic', 'Technical', 'Social'],
+                labels: ['Approved', 'Rejected'],
                 datasets: [{
-                    label: 'Attendance %',
-                    data: [35, 25, 20, 20],
-                    backgroundColor: ['#2196f3', '#ff9800', '#4caf50', '#e91e63']
+                    label: 'Membership Status',
+                    data: [<?= $approved_count ?>, <?= $rejected_count ?>],
+                    backgroundColor: ['#28a745', '#dc3545']
                 }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
             }
         });
 
@@ -181,7 +202,6 @@ if (
 function toggleSidebar() {
     const sidebar = document.getElementById("sidebar");
     const content = document.getElementById("mainContent");
-
     sidebar.classList.toggle("collapsed");
     content.classList.toggle("collapsed");
 }
