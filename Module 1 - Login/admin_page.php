@@ -19,17 +19,34 @@ if (
 // Connect to DB
 $link = mysqli_connect("localhost", "root", "", "mypetakom") or die("Connection failed");
 
-// Count approved and rejected statuses
+// Count membership statuses including Pending
 $status_result = mysqli_query($link, "
     SELECT 
         SUM(CASE WHEN status = 'Approved' THEN 1 ELSE 0 END) AS approved_count,
-        SUM(CASE WHEN status = 'Rejected' THEN 1 ELSE 0 END) AS rejected_count
+        SUM(CASE WHEN status = 'Rejected' THEN 1 ELSE 0 END) AS rejected_count,
+        SUM(CASE WHEN status = 'Pending' THEN 1 ELSE 0 END) AS pending_count
     FROM membership
 ");
 $status_counts = mysqli_fetch_assoc($status_result);
 $approved_count = $status_counts['approved_count'] ?? 0;
 $rejected_count = $status_counts['rejected_count'] ?? 0;
+$pending_count = $status_counts['pending_count'] ?? 0;
+
+// Count users by role
+$user_result = mysqli_query($link, "
+    SELECT 
+        SUM(CASE WHEN role = 'student' THEN 1 ELSE 0 END) AS student_count,
+        SUM(CASE WHEN role = 'event_advisor' THEN 1 ELSE 0 END) AS advisor_count,
+        SUM(CASE WHEN role = 'administrator' THEN 1 ELSE 0 END) AS admin_count
+    FROM login
+");
+$user_counts = mysqli_fetch_assoc($user_result);
+$student_count = $user_counts['student_count'] ?? 0;
+$advisor_count = $user_counts['advisor_count'] ?? 0;
+$admin_count = $user_counts['admin_count'] ?? 0;
+$total_users = $student_count + $advisor_count + $admin_count;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +82,7 @@ $rejected_count = $status_counts['rejected_count'] ?? 0;
         <div class="position-relative">
             <img src="../Images/eventadvisor.png" class="profile-icon" onclick="toggleDropdown()" alt="profile">
             <div id="dropdown-content" class="dropdown-content p-3">
-                <a class="d-block" href="../Module 1 - Login/view_admin_profile.php" style="white-space: nowrap;">Setting Profile</a>
+                <a class="d-block" href="../Module 1 - Login/view_admin_profile.php">Setting Profile</a>
                 <a href="../Module 1 - Login/logout.php" class="d-block text-danger">Logout</a>
             </div>
         </div>
@@ -79,8 +96,11 @@ $rejected_count = $status_counts['rejected_count'] ?? 0;
         <!-- A. Overview Cards -->
         <div class="overview-cards">
             <div class="card">
-                <h2>Total Events</h2>
-                <p>12</p>
+                <h2>Total User</h2>
+                <h3>(<?php echo $total_users; ?> user)</h3>
+                <p>Student - <?php echo $student_count; ?></p>
+                <p>Event Advisor - <?php echo $advisor_count; ?></p>
+                <p>Administrator - <?php echo $admin_count; ?></p>
             </div>
             <div class="card">
                 <h2>Total Attendance Slots</h2>
@@ -138,12 +158,102 @@ $rejected_count = $status_counts['rejected_count'] ?? 0;
             <button>Download CSV</button>
             <button>Download PDF</button>
         </div>
+
+        <!-- 🔍 USER SEARCH -->
+        <div class="search-section mt-5" id="user-search">
+            <h3>🔍 USER SEARCH</h3>
+            <form method="get" action="#user-search" class="d-flex gap-2 align-items-center flex-wrap">
+                <input type="text" name="search_query" placeholder="Search by name or role"
+                       class="form-control w-auto" style="min-width: 250px"
+                       value="<?= isset($_GET['search_query']) ? htmlspecialchars($_GET['search_query']) : '' ?>" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <?php if (isset($_GET['search_query'])): ?>
+                    <a href="admin_page.php#user-search" class="btn btn-outline-secondary">Clear</a>
+                <?php endif; ?>
+            </form>
+
+            <?php
+            if (isset($_GET['search_query'])) {
+                $search = mysqli_real_escape_string($link, $_GET['search_query']);
+
+                $query = "
+                    SELECT 
+                        l.username,
+                        l.role,
+                        s.fullname AS name,
+                        s.email AS email,
+                        s.phone_num AS phone_num,
+                        NULL AS student_matric,
+                        NULL AS program
+                    FROM login l
+                    JOIN staff s ON l.login_id = s.login_id 
+                    WHERE l.role IN ('administrator', 'event_advisor')
+                      AND (
+                        s.fullname LIKE '%$search%' OR 
+                        l.role LIKE '%$search%' OR 
+                        l.username LIKE '%$search%'
+                      )
+
+                    UNION
+
+                    SELECT 
+                        l.username,
+                        l.role,
+                        st.name AS name,
+                        st.email AS email,
+                        NULL AS phone_num,
+                        st.student_matric,
+                        st.program
+                    FROM login l
+                    JOIN student st ON l.login_id = st.login_id
+                    WHERE l.role = 'student'
+                      AND (
+                        st.name LIKE '%$search%' OR 
+                        l.role LIKE '%$search%' OR 
+                        l.username LIKE '%$search%'
+                      )
+                ";
+
+                $result = mysqli_query($link, $query);
+
+                if (mysqli_num_rows($result) > 0) {
+                    echo "<div class='table-responsive mt-4'>";
+                    echo "<table class='table table-striped table-bordered'>";
+                    echo "<thead><tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone No</th>
+                            <th>Student Matric</th>
+                            <th>Program</th>
+                        </tr></thead><tbody>";
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['role']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['phone_num'] ?? '-') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['student_matric'] ?? '-') . "</td>";
+                        echo "<td>" . htmlspecialchars($row['program'] ?? '-') . "</td>";
+                        echo "</tr>";
+                    }
+
+                    echo "</tbody></table></div>";
+                } else {
+                    echo "<p class='mt-3 text-danger'>No results found for '<strong>$search</strong>'</p>";
+                }
+            }
+            ?>
+        </div>
     </div>
 
     <!-- Chart.js Script -->
     <script>
         const ctx1 = document.getElementById('barChart').getContext('2d');
-        const barChart = new Chart(ctx1, {
+        new Chart(ctx1, {
             type: 'bar',
             data: {
                 labels: ['Career Fair', 'Tech Talk', 'Hackathon', 'Workshop'],
@@ -156,27 +266,27 @@ $rejected_count = $status_counts['rejected_count'] ?? 0;
         });
 
         const ctx2 = document.getElementById('pieChart').getContext('2d');
-        const pieChart = new Chart(ctx2, {
+        new Chart(ctx2, {
             type: 'pie',
             data: {
-                labels: ['Approved', 'Rejected'],
+                labels: ['Approved', 'Rejected', 'Pending'],
                 datasets: [{
                     label: 'Membership Status',
-                    data: [<?= $approved_count ?>, <?= $rejected_count ?>],
-                    backgroundColor: ['#28a745', '#dc3545']
+                    data: [<?= $approved_count ?>, <?= $rejected_count ?>, <?= $pending_count ?>],
+                    backgroundColor: ['#28a745', '#dc3545', '#ffc107']
                 }]
             },
             options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
+        plugins: {
+            legend: {
+                position: 'bottom'
             }
-        });
+        }
+    }
+});
 
         const ctx3 = document.getElementById('lineChart').getContext('2d');
-        const lineChart = new Chart(ctx3, {
+        new Chart(ctx3, {
             type: 'line',
             data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
@@ -200,10 +310,8 @@ $rejected_count = $status_counts['rejected_count'] ?? 0;
 
 <script>
 function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    const content = document.getElementById("mainContent");
-    sidebar.classList.toggle("collapsed");
-    content.classList.toggle("collapsed");
+    document.getElementById("sidebar").classList.toggle("collapsed");
+    document.getElementById("mainContent").classList.toggle("collapsed");
 }
 
 function toggleDropdown() {
